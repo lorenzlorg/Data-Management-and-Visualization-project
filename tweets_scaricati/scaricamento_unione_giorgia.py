@@ -80,7 +80,7 @@ for donna in df_lista_ridotta.itertuples():
 
 # Download dei tweets a partire dalla donna
 for riga in df_lista_ridotta.itertuples():
-    # time.sleep(3) ma è necessario ??????
+    # time.sleep(3)  @todo: ma è necessario ??????
 
     # creo un nuovo dataset completo
     complete_tweets_db = pd.DataFrame()
@@ -143,11 +143,21 @@ for riga in df_lista_ridotta.itertuples():
     # for element in hashtags_considerati_lista:
     #     hashtags_considerati = hashtags_considerati + element + ' OR '
     # hashtags_considerati = hashtags_considerati[0:-4]
-    # if user_mention != '' :
+    # if user_mention != '' : # @todo: verificare se i nan li legge come stringa vuota (a me aveva dato problemi, per quello avevo creato tabella a parte)
     #     query = "{}".format(user_mention)
     # else:
     #     query = "{} AND {}".format(chiave, hashtags_considerati)
     #
+
+    # struttura query lorenzo, ci satrebbe provare tutti e due i metodi su uno scaricamento piccolo e vedere le differenze oppure se sono uguali
+    # hashtags_considerati_lista = riga.hashtag_list.split()
+    # hashtags_considerati = ''
+    # for element in hashtags_considerati_lista:
+    #     hashtags_considerati = hashtags_considerati + element + ' OR '
+    # hashtags_considerati = hashtags_considerati[0:-4]
+    # query = "({} OR ({} AND ({})))".format(user_mention, chiave, hashtags_considerati)  # @todo: secondo me vedere se user_mention != '' equivale a vedere se è false
+
+
 
     df1 = scaricamento_tweets(until1, since1, changing1, remaining_days1, complete_tweets_db)
     df1.set_index('id', inplace=True)

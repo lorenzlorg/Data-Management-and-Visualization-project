@@ -35,7 +35,7 @@ until = until + timedelta(days=1) # per considerare tutte le 24 ore del primo gi
 print("Until:    ", until)
 
 # Data fine ricerca: scaricamento tweets fino a questo data (più vecchia) rimane fissa
-since = datetime(2015,12,10,00,00,00) # TESTTT
+since = datetime(2015,12,10,00,00,00) # TESTTT @todo: mettere data esatta
 
 # since = datetime(2015,1,1,00,00,00)
 print("Since:    ", since)
