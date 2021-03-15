@@ -136,6 +136,19 @@ for riga in df_lista_ridotta.itertuples():
     query = "{}".format(user_mention)
     print(query)
 
+
+    # struttura query giorgia
+    # hashtags_considerati_lista = riga.hashtag_list.split()
+    # hashtags_considerati = ''
+    # for element in hashtags_considerati_lista:
+    #     hashtags_considerati = hashtags_considerati + element + ' OR '
+    # hashtags_considerati = hashtags_considerati[0:-4]
+    # if user_mention != '' :
+    #     query = "{}".format(user_mention)
+    # else:
+    #     query = "{} AND {}".format(chiave, hashtags_considerati)
+    #
+
     df1 = scaricamento_tweets(until1, since1, changing1, remaining_days1, complete_tweets_db)
     df1.set_index('id', inplace=True)
     df1= df1[['tweet', 'language', 'hashtags', 'user_id', 'username', 'name', 'nlikes', 'nreplies', 'nretweets']]
