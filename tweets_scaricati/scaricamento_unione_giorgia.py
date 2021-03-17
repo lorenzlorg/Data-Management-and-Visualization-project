@@ -59,7 +59,7 @@ def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_
 
 
 # lista donne
-df_lista_donne = pd.read_csv("tabella_finale_finale_RIDOTTA.csv", sep=';')
+df_lista_donne = pd.read_csv("tweets_scaricati/tabella_finale_finale_RIDOTTA.csv", sep=',')
 df_lista_donne.columns
 df_lista_donne['hashtag_list'] = df_lista_donne.hashtag.str.split()
 df_lista_ridotta = df_lista_donne[["id", "name", "username_twitter", "hashtag_list", "year"]]
@@ -80,7 +80,6 @@ for donna in df_lista_ridotta.itertuples():
 
 # Download dei tweets a partire dalla donna
 for riga in df_lista_ridotta.itertuples():
-    # time.sleep(3)  @todo: ma è necessario ??????
 
     # creo un nuovo dataset completo
     complete_tweets_db = pd.DataFrame()
@@ -122,20 +121,8 @@ for riga in df_lista_ridotta.itertuples():
     print("NUOVA RICERCA")
 
     chiave = riga.name
-
+    id_donna = riga.id
     user_mention = riga.username_twitter
-
-    hashtags_considerati = riga.hashtag_list
-
-    # query = "({} OR {})".format(user_mention, hashtags_considerati)
-    # hashtags = hash1 OR hash2
-    #
-    # username OR(name AND hashtags)
-    #
-    # (name AND hashtags)OR username
-    query = "{}".format(user_mention)
-    print(query)
-
 
     # struttura query giorgia
     # hashtags_considerati_lista = riga.hashtag_list.split()
@@ -147,40 +134,47 @@ for riga in df_lista_ridotta.itertuples():
     #     query = "{}".format(user_mention)
     # else:
     #     query = "{} AND {}".format(chiave, hashtags_considerati)
-    #
 
     # struttura query lorenzo, ci satrebbe provare tutti e due i metodi su uno scaricamento piccolo e vedere le differenze oppure se sono uguali
+    user_mention_bbc = "@BBC100Women"
+    hashtags_bbc = "#BBC100Women OR #BBC100women OR #bbc100women OR #Bbc100Women OR #bbc100WOMEN OR #bBc100women OR #BBC100WOMEN"
+    query_bbc = "{} OR {}".format(user_mention_bbc, hashtags_bbc)
+
     # hashtags_considerati_lista = riga.hashtag_list.split()
-    # hashtags_considerati = ''
-    # for element in hashtags_considerati_lista:
-    #     hashtags_considerati = hashtags_considerati + element + ' OR '
-    # hashtags_considerati = hashtags_considerati[0:-4]
-    # query = "({} OR ({} AND ({})))".format(user_mention, chiave, hashtags_considerati)  # @todo: secondo me vedere se user_mention != '' equivale a vedere se è false
+    hashtags_considerati = ''
+    for element in riga.hashtag_list:
+        hashtags_considerati = hashtags_considerati + element + ' OR '
+
+    hashtags_considerati = hashtags_considerati + query_bbc
+
+    query = "({} OR ({} AND ({})))".format(user_mention, chiave, hashtags_considerati)  # @todo: secondo me vedere se user_mention != '' equivale a vedere se è false
 
 
 
     df1 = scaricamento_tweets(until1, since1, changing1, remaining_days1, complete_tweets_db)
-    df1.set_index('id', inplace=True)
-    df1= df1[['tweet', 'language', 'hashtags', 'user_id', 'username', 'name', 'nlikes', 'nreplies', 'nretweets']]
+    if not df1.empty:
+        df1.set_index('id', inplace=True)
+        df1= df1[['date', 'tweet', 'language', 'hashtags', 'user_id', 'username', 'name', 'nlikes', 'nreplies', 'nretweets']]
 
-    for tweet in df1.itertuples():
-        print("3) ------------------ SONO QUI! ------------------")
-        if tweet not in donne_dictionary[chiave]["tweets"]["pre-classifica"]:
-            donne_dictionary[chiave]["tweets"]["pre-classifica"].append(tweet)
+        for tweet in df1.itertuples():
+            print("3) ------------------ SONO QUI! ------------------")
+            if tweet not in donne_dictionary[id_donna]["tweets"]["pre-classifica"]:
+                donne_dictionary[id_donna]["tweets"]["pre-classifica"].append(tweet)
 
 
     df2 = scaricamento_tweets(until2, since2, changing2, remaining_days2, complete_tweets_db)
-    df2.set_index('id', inplace=True)
-    df2 = df2[['tweet', 'language', 'hashtags', 'user_id', 'username', 'name', 'nlikes', 'nreplies', 'nretweets']]
+    if not df2.empty:
+        df2.set_index('id', inplace=True)
+        df2 = df2[['date', 'tweet', 'language', 'hashtags', 'user_id', 'username', 'name', 'nlikes', 'nreplies', 'nretweets']]
 
-    for tweet in df2.itertuples():
+        for tweet in df2.itertuples():
 
-        print("4) ------------------ SONO QUI! ------------------")
-        if tweet not in donne_dictionary[chiave]["tweets"]["post-classifica"]:
-            donne_dictionary[chiave]["tweets"]["post-classifica"].append(tweet)
+            print("4) ------------------ SONO QUI! ------------------")
+            if tweet not in donne_dictionary[id_donna]["tweets"]["post-classifica"]:
+                donne_dictionary[id_donna]["tweets"]["post-classifica"].append(tweet)
 
 
-with open('myfile_prova_dopo_ciclato_tabella.json', 'w', encoding="UTF-8") as f:
+with open('lolololo.json', 'w', encoding="UTF-8") as f:
     simplejson.dump(donne_dictionary, f, ignore_nan=True)
 
 print(donne_dictionary)

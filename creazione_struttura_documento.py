@@ -45,8 +45,7 @@ def costruzione_doc(year, dati_donne_indicatori_stato_anno):
              "age": row.age,
              "catogory": row.category,
              "role": row.job,
-             "description": row.description,
-             "tweets": []
+             "description": row.description
              }
     indicatori_stato = {
               "gdp":row.gdp,
@@ -82,8 +81,8 @@ for stato in csv_groups: # ciclo sui vari stati
      
      if anno == 2015:
       costruzione_doc("2015", dati_donne_indicatori_stato_anno) # inserisco dati per il 2015
-     if anno == 2020:
-       costruzione_doc("2020", dati_donne_indicatori_stato_anno) # inserisco dati per il 2020
+     if anno == 2019:
+       costruzione_doc("2019", dati_donne_indicatori_stato_anno) # inserisco dati per il 20219
 
   documents.append(document) # passo ad analizzare un nuovo stato
 
@@ -92,94 +91,3 @@ print(documents)
 with open('prova.json', 'w') as f:
   simplejson.dump(documents, f, ignore_nan=True)
   # json.dump(documents, f, cls=NumpyEncoder)
-
-"""tweets
-
-forse bisogna partire considerando solo documenti e usare PyMongo aggregations (group by) dato che non potremo più fare group by sul dataframe. 
-
-oppure creare degli **identificatori** per le donne in modo tale che una volta trovato il tweet noi sappiamo dove andare
-
-oppure ragionare simil:     
-
-Retrieving the same group DataFrame from the MongoDB groups using the group_key
-`    mongodb_group_df = mongodb_df_groups.get_group(group_key)`
-"""
-
-# !pip install editdistance
-import editdistance
-
-tweets_2015 = pd.read_csv('tweets_scaricati/tweets 2015-2020/tweets_2015.csv')
-tabella_donne = pd.read_csv('tabelle_finali_donne_indicatori_stati/tabella_finale.csv')
-
-tweet_utili = []
-
-# mettere questa parte prima della creazione di documents, cosi poi andiamo ad aggiungere in documents il campo che sarà nominato tweets. Quindi dovremmo riuscire ad aggiuere per ogni donna, nella tabella che abbiamo, un campo tweet che è un array di tweets
-for element in tweets_2015.itertuples(): # ciclo sui vari tweet, sto considerando solo quelli del 2015, potremmo pensare anche qui di creare un'unica tabella
-  print(element)
-  #ciclo su ognuna delle 100 donne, su ogni tweet devo andare a vedere se c'è per caso una o più delle 100 donne
-  for donna in tabella_donne.itertuples(): # ciclo sulle varie donne
-    nome_cognome = donna.name.split()
-    # print(nome_cognome)
-    if len(nome_cognome)>1:
-      word1 = nome_cognome[0]
-      word2 = nome_cognome[1]
-    else: # donne per cui abbiamo solo il nome
-      word1 = nome_cognome[0]
-      word2 = ''
-      
-    # print(word1)
-    # print(word2)
-
-    # word1 = 'selected' # sarà il nome
-    # word2 = 'achiviers' # sarà il cognome
-    # print(element.tweet)
-    testo_tweet = element.tweet
-    token_list = testo_tweet.split() # il testo del tweet viene suddivso in token
-    # print(token_list)
-    find_word1 = False
-    find_word2 = False
-
-    for token in token_list: # cerco il nome
-      #calculate edit distance btw word1 e token
-      #se valore ok passo a confrontare word2 e token
-      #se due valori ok allora il tweet lo aggiungo alla donna in questione (word1 e word2)
-      if editdistance.eval(token, word1) <= 2:
-        # print(token, word1)
-        find_word1 = True
-        break
-
-    if find_word1 is True: # se non è stato trovato il nome, allora non sto li a cercare il cognome
-      for token in token_list: # cerco il cognome
-        if editdistance.eval(token, word2) <= 2:
-          # print(token, word2)
-          find_word2 = True
-          break
-
-    if find_word1 and find_word2:
-      #allora c'è stato match tra nome e cognome nel testo
-      #aggiungo tweet alla donna
-      # print('inserisco tweet')
-      tweet_utili.append(element)  # !!!!!!!!!!!!!!!!!!!!!! PUNTO DA CAPIRE, tweet_utili dovrebbe essere il campo tweet della donna in questione, noi dovremo aggiungere il seguente tweet alla donna (nel cilo for donna, sappiamo quale donna è), dovremo praticamente accedere al json prodotto prima, ovvero documents
-      break # in realtà non dovremmo stoppare perchè in un tweet ci possono essere nominate più donne
-
-# documents[0]
-
-# # ai vari elementi di documents possiamo accedere cosi
-
-# x = documents[0]
-# print(x)
-# y = x['2015']
-# print(y)
-# # z = y['donne vincitrici']
-# # print(z)
-# z = y[0]
-# print(z)
-# k = z['donne vincitrici']
-# print(k)
-# print(type(k))
-# print(k[0])
-# lol = k[0]
-# print(k)
-# # default_data.update({'item3': 3})
-
-# lol['tweet'] = 'ciao twitter'
