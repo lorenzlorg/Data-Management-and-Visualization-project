@@ -1,3 +1,4 @@
+
 import csv
 import time
 import json
@@ -139,17 +140,22 @@ for riga in df_lista_ridotta.itertuples():
     # print(query)
 
 
-    # struttura query giorgia
-    # hashtags_considerati_lista = riga.hashtag_list.split()
-    # hashtags_considerati = ''
-    # for element in hashtags_considerati_lista:
-    #     hashtags_considerati = hashtags_considerati + element + ' OR '
-    # hashtags_considerati = hashtags_considerati[0:-4]
-    # if user_mention != '' : # @todo: verificare se i nan li legge come stringa vuota (a me aveva dato problemi, per quello avevo creato tabella a parte)
-    #     query = "{}".format(user_mention)
-    # else:
-    #     query = "{} AND {}".format(chiave, hashtags_considerati)
-    #
+   #  # #struttura query giorgia
+   #  # hashtags_considerati_lista = riga.hashtag_list.split()
+   #  hashtags_considerati = ''
+   #  user_mention_bbc = "@BBC100Women"
+   #  hashtags_bbc = "#BBC100Women OR #BBC100women OR #bbc100women OR #Bbc100Women OR #bbc100WOMEN OR #bBc100women OR #BBC100WOMEN"
+   #  query_bbc = "{} OR {}".format(user_mention_bbc, hashtags_bbc)
+   #
+   #  for element in riga.hashtag_list:
+   #      hashtags_considerati = hashtags_considerati + element + ' OR '
+   # # hashtags_considerati = hashtags_considerati[0:-4]
+   #  hashtags_considerati = hashtags_considerati + query_bbc
+   #  if user_mention != '' : # @todo: verificare se i nan li legge come stringa vuota (a me aveva dato problemi, per quello avevo creato tabella a parte)
+   #      query = "{}".format(user_mention)
+   #  else:
+   #      query = "{} AND {}".format(chiave, hashtags_considerati)
+
 
     # struttura query lorenzo, ci satrebbe provare tutti e due i metodi su uno scaricamento piccolo e vedere le differenze oppure se sono uguali
     user_mention_bbc = "@BBC100Women"
