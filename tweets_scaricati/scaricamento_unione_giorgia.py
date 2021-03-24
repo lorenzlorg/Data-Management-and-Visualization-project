@@ -62,7 +62,7 @@ def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_
 
 
 # lista donne
-df_lista_donne = pd.read_csv("tabelle_finali_donne_indicatori_stati/tabella_sistemata_2_ultime9.csv", sep=',')
+df_lista_donne = pd.read_csv("tabelle_finali_donne_indicatori_stati/tabella_sistemata_3_restante.csv", sep=',')
 df_lista_donne.columns
 df_lista_donne['hashtag_list'] = df_lista_donne.hashtag.str.split()
 df_lista_ridotta = df_lista_donne[["id", "name", "username_twitter", "hashtag_list", "year"]]
@@ -177,22 +177,22 @@ for riga in df_lista_ridotta.itertuples():
                 donne_dictionary[id_donna]["tweets"]["post-classifica"].append(tweet)
 
 
-with open('lolololo1.json', 'w', encoding="UTF-8") as f:
+with open('parte5.json', 'w', encoding="UTF-8") as f:
     simplejson.dump(donne_dictionary, f, ignore_nan=True)
 
 print(donne_dictionary)
 
 # File 1
-with open('lolololo.json') as f:
+with open('parte1.json') as f:
   data1 = json.load(f)
 
 # File 2
-with open('lolololo1.json') as f:
+with open('parte2.json') as f:
   data2 = json.load(f)
 
 
 # Merge the differents json files
 output_final_merging = merge(data1, data2)
 
-with open('output_finale_giorgia.json', 'w', encoding="UTF-8") as f:
+with open('porva_parti_1_2.json', 'w', encoding="UTF-8") as f:
     simplejson.dump(output_final_merging, f, ignore_nan=True)
