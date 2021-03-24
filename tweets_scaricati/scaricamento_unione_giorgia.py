@@ -182,17 +182,26 @@ with open('parte5.json', 'w', encoding="UTF-8") as f:
 
 print(donne_dictionary)
 
-# File 1
 with open('parte1.json') as f:
-  data1 = json.load(f)
+    data1 = json.load(f)
 
-# File 2
 with open('parte2.json') as f:
-  data2 = json.load(f)
+    data2 = json.load(f)
 
+with open('parte3.json') as f:
+    data3 = json.load(f)
+
+with open('parte4.json') as f:
+    data4 = json.load(f)
+
+with open('parte5.json') as f:
+    data5 = json.load(f)
 
 # Merge the differents json files
-output_final_merging = merge(data1, data2)
+output_final_merging = merge(data1, data2, data3)
 
-with open('porva_parti_1_2.json', 'w', encoding="UTF-8") as f:
+output_final_merging = merge(output_final_merging, data4, data5)
+
+
+with open('merge_lorenzo.json', 'w', encoding="UTF-8") as f:
     simplejson.dump(output_final_merging, f, ignore_nan=True)
