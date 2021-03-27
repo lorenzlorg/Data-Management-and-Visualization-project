@@ -182,26 +182,40 @@ with open('parte5.json', 'w', encoding="UTF-8") as f:
 
 print(donne_dictionary)
 
-# with open('parte1.json') as f:
-#     data1 = json.load(f)
-#
-# with open('parte2.json') as f:
-#     data2 = json.load(f)
-#
-# with open('parte3.json') as f:
-#     data3 = json.load(f)
-#
-# with open('parte4.json') as f:
-#     data4 = json.load(f)
-#
-# with open('parte5.json') as f:
-#     data5 = json.load(f)
-#
-# # Merge the differents json files
-# output_final_merging = merge(data1, data2, data3)
-#
-# output_final_merging = merge(output_final_merging, data4, data5)
-#
-#
-# with open('merge_lorenzo.json', 'w', encoding="UTF-8") as f:
-#     simplejson.dump(output_final_merging, f, ignore_nan=True)
+with open('parte1.json') as f:
+    data1 = json.load(f)
+
+with open('parte2.json') as f:
+    data2 = json.load(f)
+
+with open('parte3.json') as f:
+    data3 = json.load(f)
+
+with open('parte4.json') as f:
+    data4 = json.load(f)
+
+with open('parte5.json') as f:
+    data5 = json.load(f)
+
+# unisco parti - Lorenzo
+output_final_merging = merge(data1, data2)
+output_final_merging = merge(output_final_merging, data3)
+output_final_merging = merge(output_final_merging, data4)
+output_final_merging = merge(output_final_merging, data5)
+
+
+#unisco greta
+with open('greta.json') as f:
+    data6 = json.load(f)
+output_final_merging = merge(output_final_merging, data6)
+
+#unisco le ultime due donne
+with open('ultime_due.json') as f:
+    data6 = json.load(f)
+output_final_merging = merge(output_final_merging, data6)
+
+
+
+with open('merge_lorenzo_completo.json', 'w', encoding="UTF-8") as f:
+    simplejson.dump(output_final_merging, f, ignore_nan=True)
+# merge ignorante dovrebbe essere uguale, ma senza greta e le ultime due donne
