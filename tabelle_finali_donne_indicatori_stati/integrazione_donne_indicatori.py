@@ -143,10 +143,10 @@ totale = pd.concat([totale2015,totale2019])
 
 
 
-totale.to_csv('tabelle_finali_donne_indicatori_stati/tabella_finale_2015_2019.csv')
+totale.to_csv('tabelle_finali_donne_indicatori_stati/tabella_finale_2015_2019_V1.csv')
 
-totale_excel = pd.read_csv (r'tabelle_finali_donne_indicatori_stati/tabella_finale_2015_2019.csv')
-totale_excel.to_excel (r'tabelle_finali_donne_indicatori_stati/tabella_finale_2015_2019.xlsx', index = None, header=True)
+totale_excel = pd.read_csv (r'tabelle_finali_donne_indicatori_stati/tabella_finale_2015_2019_V1.csv')
+totale_excel.to_excel (r'tabelle_finali_donne_indicatori_stati/tabella_finale_2015_2019_V1.xlsx', index = None, header=True)
 
 
 
@@ -154,7 +154,7 @@ totale_excel.to_excel (r'tabelle_finali_donne_indicatori_stati/tabella_finale_20
 # tabella finale
 # generazione id e ordinamento colonne
 
-arricchita= pd.read_csv('tabelle_finali_donne_indicatori_stati/tabella_finale_arricchita_2015_2019.csv')
+arricchita= pd.read_csv('tabelle_finali_donne_indicatori_stati/tabella_finale_arricchita_2015_2019_V2.csv')
 
 arricchita['id'] = [shortuuid.ShortUUID().random(length=3) for _ in range(len(arricchita.index))]
 arricchita_final = arricchita[['id', 'name', 'age', 'username_twitter', 'hashtag', 'job', 'description', 'image',
@@ -162,7 +162,7 @@ arricchita_final = arricchita[['id', 'name', 'age', 'username_twitter', 'hashtag
                                 'labour_percentage', 'gender_gap', 'percentuale_ministre',
                                 'percentuale_parlamentari', 'hdi']]
 
-arricchita_final.to_csv('tabelle_finali_donne_indicatori_stati/tabella_finale_finale.csv')
+arricchita_final.to_csv('tabelle_finali_donne_indicatori_stati/tabella_finale_finale_V3.csv')
 
 
 

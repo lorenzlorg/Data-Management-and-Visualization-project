@@ -60,7 +60,7 @@ def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_
 
 
 # lista donne
-df_lista_donne = pd.read_csv("tweets_scaricati/tabella_finale_finale_RIDOTTA.csv", sep=',')
+df_lista_donne = pd.read_csv("tweets_scaricati/TEST tabella_finale_finale_V3.csv", sep=',')
 df_lista_donne.columns
 df_lista_donne['hashtag_list'] = df_lista_donne.hashtag.str.split()
 df_lista_ridotta = df_lista_donne[["id", "name", "username_twitter", "hashtag_list", "year"]]
