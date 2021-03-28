@@ -24,7 +24,6 @@ def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_
         print("\nSTART COLLECTING...")
 
         c = twint.Config()
-        c.Custom_query
         c.Search = query
         c.Store_csv = True
         c.Since = changing.strftime('%Y-%m-%d %H:%M:%S')
@@ -34,7 +33,6 @@ def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_
         c.Hide_output= True
         # c.Store_json = True
         c.User_full= True
-        c.Followers = True
 
         twint.run.Search(c)
 
@@ -66,6 +64,8 @@ def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_
 # lista donne
 df_lista_donne = pd.read_csv("tweets donne Lorenzo/tabella_sistemata_3_restante.csv", sep=',')
 df_lista_donne.columns
+
+
 df_lista_donne['hashtag_list'] = df_lista_donne.hashtag.str.split()
 df_lista_ridotta = df_lista_donne[["id", "name", "username_twitter", "hashtag_list", "year"]]
 
@@ -85,7 +85,8 @@ for donna in df_lista_ridotta.itertuples():
 
 # Download dei tweets a partire dalla donna
 for riga in df_lista_ridotta.itertuples():
-
+    print("*"*30)
+    print("NOME DONNA: ", riga.name)
     # creo un nuovo dataset completo
     complete_tweets_db = pd.DataFrame()
     #time.sleep(10)
@@ -94,16 +95,16 @@ for riga in df_lista_ridotta.itertuples():
 
     if riga.year == 2015:
         # prima finestra
-        until1 = datetime(2015, 11, 16, 00, 00, 00)
+        until1 = datetime(2015, 11, 14, 00, 00, 00)
         until1 = until1 + timedelta(days=1)  # per considerare tutte le 24 ore del primo giorno
-        since1 = datetime(2015, 9, 1, 00, 00, 00)
+        since1 = datetime(2015, 11, 1, 00, 00, 00)
         changing1 = until1 - timedelta(days=1)
         remaining_days1 = int(str(changing1 - since1).split()[0])
 
         # seconda finestra
-        until2 = datetime(2016, 2, 1, 00, 00, 00)
+        until2 = datetime(2015, 12, 1, 00, 00, 00)
         until2 = until2 + timedelta(days=1)  # per considerare tutte le 24 ore del primo giorno
-        since2 = datetime(2015, 11, 17, 00, 00, 00)
+        since2 = datetime(2015, 11, 15, 00, 00, 00)
         changing2 = until2 - timedelta(days=1)
         remaining_days2 = int(str(changing2 - since2).split()[0])
 
@@ -122,42 +123,58 @@ for riga in df_lista_ridotta.itertuples():
         changing2 = until2 - timedelta(days=1)
         remaining_days2 = int(str(changing2 - since2).split()[0])
 
-    print("NOME DONNA: ", riga.name)
-    print("NUOVA RICERCA")
-
-    chiave = riga.name
+    #-------------------------------------------------------------------------------------------------
+    presence_name = True
+    name = riga.name
     id_donna = riga.id
-    user_mention = riga.username_twitter
+    # user_mention_bbc = "@BBC100Women"
+    # hashtags_bbc = "#BBC100Women OR #BBC100women OR #bbc100women OR #Bbc100Women OR #bbc100WOMEN OR #bBc100women OR #BBC100WOMEN OR #100women"
+    # query_bbc = "{} OR {}".format(user_mention_bbc, hashtags_bbc)
 
-    # struttura query giorgia
-    # hashtags_considerati_lista = riga.hashtag_list.split()
+    presence_username_twitter = False
+    if (type(riga.username_twitter)) is not float and riga.username_twitter != '':
+        user_mention = riga.username_twitter
+        presence_username_twitter = True
+
+    presence_hashtag = False
+    if (type(riga.hashtag_list)) is not float:
+        hashtags_considerati = ''
+
+        for element in riga.hashtag_list:
+            hashtags_considerati = hashtags_considerati + element + ' OR '
+        hashtags_considerati = hashtags_considerati + query_bbc
+        presence_hashtag = True
+    else:
+        hashtags_considerati = query_bbc
+
+    if presence_username_twitter == False:
+        query = "{} AND ({})".format(name, hashtags_considerati)
+    else:
+        query= "{} OR ({} AND ({}))".format(user_mention, name, hashtags_considerati)
+    #-------------------------------------------------------------------------------------------------
+
+    # chiave = riga.name
+    # id_donna = riga.id
+    # user_mention = riga.username_twitter
+    #
+    # user_mention_bbc = "@BBC100Women"
+    # hashtags_bbc = "#BBC100Women OR #BBC100women OR #bbc100women OR #Bbc100Women OR #bbc100WOMEN OR #bBc100women OR #BBC100WOMEN"
+    # query_bbc = "{} OR {}".format(user_mention_bbc, hashtags_bbc)
+    #
+    # # hashtags_considerati_lista = riga.hashtag_list.split()
     # hashtags_considerati = ''
-    # for element in hashtags_considerati_lista:
+    # for element in riga.hashtag_list:
     #     hashtags_considerati = hashtags_considerati + element + ' OR '
-    # hashtags_considerati = hashtags_considerati[0:-4]
-    # if user_mention != '' : # @todo: verificare se i nan li legge come stringa vuota (a me aveva dato problemi, per quello avevo creato tabella a parte)
-    #     query = "{}".format(user_mention)
-    # else:
-    #     query = "{} AND {}".format(chiave, hashtags_considerati)
+    #
+    # hashtags_considerati = hashtags_considerati + query_bbc
+    #
+    # query = "({} OR ({} AND ({})))".format(user_mention, chiave, hashtags_considerati)  # @todo: secondo me vedere se user_mention != '' equivale a vedere se è false
+    print('query: ', query)
 
-    # struttura query lorenzo, ci satrebbe provare tutti e due i metodi su uno scaricamento piccolo e vedere le differenze oppure se sono uguali
-    user_mention_bbc = "@BBC100Women"
-    hashtags_bbc = "#BBC100Women OR #BBC100women OR #bbc100women OR #Bbc100Women OR #bbc100WOMEN OR #bBc100women OR #BBC100WOMEN OR #100women"
-    query_bbc = "{} OR {}".format(user_mention_bbc, hashtags_bbc)
-
-    # hashtags_considerati_lista = riga.hashtag_list.split()
-    hashtags_considerati = ''
-    for element in riga.hashtag_list:
-        hashtags_considerati = hashtags_considerati + element + ' OR '
-
-    hashtags_considerati = hashtags_considerati + query_bbc
-
-    query = "({} OR ({} AND ({})))".format(user_mention, chiave, hashtags_considerati)  # @todo: secondo me vedere se user_mention != '' equivale a vedere se è false
-    print(query)
-
-
+    print('sopra df1')
     df1 = scaricamento_tweets(until1, since1, changing1, remaining_days1, complete_tweets_db)
     if not df1.empty:
+        print('non sono empty')
         df1.set_index('id', inplace=True)
         df1= df1[['date', 'tweet', 'language', 'hashtags', 'user_id', 'username', 'name', 'nlikes', 'nreplies', 'nretweets']]
 
@@ -166,9 +183,10 @@ for riga in df_lista_ridotta.itertuples():
             if tweet not in donne_dictionary[id_donna]["tweets"]["pre-classifica"]:
                 donne_dictionary[id_donna]["tweets"]["pre-classifica"].append(tweet)
 
-
+    print('sopra df2')
     df2 = scaricamento_tweets(until2, since2, changing2, remaining_days2, complete_tweets_db)
     if not df2.empty:
+        print('non sono empty')
         df2.set_index('id', inplace=True)
         df2 = df2[['date', 'tweet', 'language', 'hashtags', 'user_id', 'username', 'name', 'nlikes', 'nreplies', 'nretweets']]
 
@@ -179,7 +197,7 @@ for riga in df_lista_ridotta.itertuples():
                 donne_dictionary[id_donna]["tweets"]["post-classifica"].append(tweet)
 
 
-with open('siuuuu.json', 'w', encoding="UTF-8") as f:
+with open('poooo.json', 'w', encoding="UTF-8") as f:
     simplejson.dump(donne_dictionary, f, ignore_nan=True)
 
 print(donne_dictionary)
