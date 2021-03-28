@@ -24,8 +24,7 @@ def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_
         print("\nSTART COLLECTING...")
 
         c = twint.Config()
-        c.Custom_query
-        c.Search = query
+        #c.Search = query
         c.Store_csv = True
         c.Since = changing.strftime('%Y-%m-%d %H:%M:%S')
         c.Until = until.strftime('%Y-%m-%d %H:%M:%S')
@@ -34,7 +33,7 @@ def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_
         c.Hide_output= True
         # c.Store_json = True
         c.User_full= True
-        c.Followers = True
+        #c.Followers = True
 
         twint.run.Search(c)
 
