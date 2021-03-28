@@ -61,6 +61,7 @@ def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_
     return complete_tweets_db_new_no_duplicates
 
 
+
 # lista donne
 df_lista_donne = pd.read_csv("tweets donne Lorenzo/tabella_sistemata_3_restante.csv", sep=',')
 df_lista_donne.columns
