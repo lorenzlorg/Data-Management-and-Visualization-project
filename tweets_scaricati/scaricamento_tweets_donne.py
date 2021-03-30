@@ -24,16 +24,14 @@ def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_
         print("\nSTART COLLECTING...")
 
         c = twint.Config()
-        #c.Search = query
+        c.Search = query
         c.Store_csv = True
         c.Since = changing.strftime('%Y-%m-%d %H:%M:%S')
         c.Until = until.strftime('%Y-%m-%d %H:%M:%S')
         c.Pandas= True
         c.Count= True
         c.Hide_output= True
-        # c.Store_json = True
         c.User_full= True
-        #c.Followers = True
 
         twint.run.Search(c)
 
@@ -63,10 +61,8 @@ def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_
 
 
 # lista donne
-df_lista_donne = pd.read_csv("tweets donne Lorenzo/tabella_sistemata_3_restante.csv", sep=',')
-df_lista_donne.columns
-df_lista_donne['hashtag_list'] = df_lista_donne.hashtag.str.split()
-df_lista_ridotta = df_lista_donne[["id", "name", "username_twitter", "hashtag_list", "year"]]
+df_lista_donne = pd.read_csv("tabelle_finali_donne_indicatori_stati/tabella_finale_finale_V3.csv", sep=',')
+df_lista_ridotta = df_lista_donne[["id", "name", "username_twitter", "hashtag", "year"]]
 
 # creazione struttura json da riempire con i tweets pre e post classifica
 donne_dictionary = {}
@@ -87,7 +83,6 @@ for riga in df_lista_ridotta.itertuples():
 
     # creo un nuovo dataset completo
     complete_tweets_db = pd.DataFrame()
-    #time.sleep(10)
     # impostazione date
     nest_asyncio.apply()  # Blocco eventuali loop di ricerca in corso
 
@@ -128,31 +123,25 @@ for riga in df_lista_ridotta.itertuples():
     id_donna = riga.id
     user_mention = riga.username_twitter
 
-    # struttura query giorgia
-    # hashtags_considerati_lista = riga.hashtag_list.split()
-    # hashtags_considerati = ''
-    # for element in hashtags_considerati_lista:
-    #     hashtags_considerati = hashtags_considerati + element + ' OR '
-    # hashtags_considerati = hashtags_considerati[0:-4]
-    # if user_mention != '' : # @todo: verificare se i nan li legge come stringa vuota (a me aveva dato problemi, per quello avevo creato tabella a parte)
-    #     query = "{}".format(user_mention)
-    # else:
-    #     query = "{} AND {}".format(chiave, hashtags_considerati)
 
-    # struttura query lorenzo, ci satrebbe provare tutti e due i metodi su uno scaricamento piccolo e vedere le differenze oppure se sono uguali
+    hashtags_considerati = ''
     user_mention_bbc = "@BBC100Women"
     hashtags_bbc = "#BBC100Women OR #BBC100women OR #bbc100women OR #Bbc100Women OR #bbc100WOMEN OR #bBc100women OR #BBC100WOMEN OR #100women"
     query_bbc = "{} OR {}".format(user_mention_bbc, hashtags_bbc)
 
-    # hashtags_considerati_lista = riga.hashtag_list.split()
-    hashtags_considerati = ''
-    for element in riga.hashtag_list:
-        hashtags_considerati = hashtags_considerati + element + ' OR '
+    if pd.isna(riga.hashtag) is False:
+        lista_hashtag = riga.hashtag.split()
+        for element in lista_hashtag:
+            hashtags_considerati = hashtags_considerati + element + ' OR '
+        hashtags_considerati = hashtags_considerati + query_bbc
+    else:
+        hashtags_considerati = query_bbc
 
-    hashtags_considerati = hashtags_considerati + query_bbc
+    if pd.isna(user_mention) is False:
+        query = "({} OR ({} AND ({})))".format(user_mention, chiave, hashtags_considerati)
+    else:
+        query = "({} AND ({}))".format(chiave, hashtags_considerati)
 
-    query = "({} OR ({} AND ({})))".format(user_mention, chiave, hashtags_considerati)  # @todo: secondo me vedere se user_mention != '' equivale a vedere se è false
-    print(query)
 
 
     df1 = scaricamento_tweets(until1, since1, changing1, remaining_days1, complete_tweets_db)
