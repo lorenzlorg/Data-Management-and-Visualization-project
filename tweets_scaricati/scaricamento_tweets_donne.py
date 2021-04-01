@@ -78,6 +78,18 @@ for donna in df_lista_ridotta.itertuples():
         }
     }
 
+    # {
+    #     donne_dictionary[donna[1]] = {
+    #     "tweets": {
+    #         "pre-classifica": [],
+    #         "number tweets pre-classifica "
+    #         "post-classifica": []
+    #         "number tweets pre-classifica "
+    #     }
+    #     nome: nome_donna
+    #
+    # }
+
 
 # Download dei tweets
 for riga in df_lista_ridotta.itertuples():
