@@ -12,7 +12,7 @@ from datetime import timedelta
 from jsonmerge import merge
 
 
-def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_db, query):
+def download_tweets(until, since, changing, remaining_days, complete_tweets_db, query):
 
     while True:
         time.sleep(1)
@@ -61,60 +61,34 @@ def scaricamento_tweets(until, since, changing, remaining_days, complete_tweets_
 
 
 # lista donne bbc
-df_lista_donne = pd.read_csv("LOL.csv", sep=',')
-df_lista_ridotta = df_lista_donne[["id", "name", "username_twitter", "hashtag", "year"]]
+df_women = pd.read_csv("tabelle_finali_donne_indicatori_stati/tabella_finale_finale_V3.csv", sep=',')
+df_women_redux = df_women[["id", "name", "username_twitter", "hashtag", "year"]]
 
-# creazione struttura json da riempire con i tweets pre e post classifica
-donne_dictionary = {}
+documents=[]
+# Download dei tweets e creazione documento
+for row in df_women_redux.itertuples():
 
-# la chiave sarà l'id della donna
-for donna in df_lista_ridotta.itertuples():
-  if donna[1] not in donne_dictionary:
-
-    donne_dictionary[donna[1]] = {
-        "tweets": {
-            "pre-classifica": [],
-            "post-classifica": []
-        }
-    }
-
-    # {
-    #     donne_dictionary[donna[1]] = {
-    #     "tweets": {
-    #         "pre-classifica": [],
-    #         "number tweets pre-classifica "
-    #         "post-classifica": []
-    #         "number tweets pre-classifica "
-    #     }
-    #     nome: nome_donna
-    #
-    # }
-
-
-# Download dei tweets
-for riga in df_lista_ridotta.itertuples():
-
-    print("\n\n" + "*"*50 + riga.name + "*"*50)
+    print("\n\n" + "*"*50 + row.name + "*"*50)
 
     complete_tweets_db = pd.DataFrame()  # creo un nuovo dataset completo
     nest_asyncio.apply()  # Blocco eventuali loop di ricerca in corso
 
     # impostazione date, pre e post classifica
-    if riga.year == 2015:
+    if row.year == 2015:
         # prima finestra
         # BUONO until1 = datetime(2015, 11, 16, 00, 00, 00)
         until1 = datetime(2015, 11, 16, 00, 00, 00)
 
         until1 = until1 + timedelta(days=1)  # per considerare tutte le 24 ore del primo giorno
         # BUONO since1 = datetime(2015, 9, 1, 00, 00, 00)
-        since1 = datetime(2015, 11, 15, 00, 00, 00)
+        since1 = datetime(2015, 9, 1, 00, 00, 00)
 
         changing1 = until1 - timedelta(days=1)
         remaining_days1 = int(str(changing1 - since1).split()[0])
 
         # seconda finestra
         # BUONO until2 = datetime(2016, 2, 1, 00, 00, 00)
-        until2 = datetime(2015, 11, 18, 00, 00, 00)
+        until2 = datetime(2016, 2, 1, 00, 00, 00)
 
         until2 = until2 + timedelta(days=1)  # per considerare tutte le 24 ore del primo giorno
         # BUONO since2 = datetime(2015, 11, 17, 00, 00, 00)
@@ -138,64 +112,82 @@ for riga in df_lista_ridotta.itertuples():
         changing2 = until2 - timedelta(days=1)
         remaining_days2 = int(str(changing2 - since2).split()[0])
 
-    nome_donna = riga.name
-    username_donna = riga.username_twitter
-    id_donna = riga.id
+    name = row.name
+    username = row.username_twitter
+    id_woman = row.id
 
     # considero per ogni donna gli hashtag di bbc100women
-    hashtags_considerati = ''
+    hashtags_considered = ''
     user_mention_bbc = "@BBC100Women"
     hashtags_bbc = "#BBC100Women OR #BBC100women OR #bbc100women OR #Bbc100Women OR #bbc100WOMEN OR #bBc100women OR #BBC100WOMEN OR #100women"
     query_bbc = "{} OR {}".format(user_mention_bbc, hashtags_bbc)
 
-    if pd.isna(riga.hashtag) is False:  # se la donna ha degli hashtag propri
-        lista_hashtag = riga.hashtag.split()
-        for element in lista_hashtag:
-            hashtags_considerati = hashtags_considerati + element + ' OR '  # aggiungo agli hashtag della donna quelli della bbc
-        hashtags_considerati = hashtags_considerati + query_bbc
+    if pd.isna(row.hashtag) is False:  # se la donna ha degli hashtag propri
+        list_hashtag = row.hashtag.split()
+        for element in list_hashtag:
+            hashtags_considered = hashtags_considered + element + ' OR '  # aggiungo agli hashtag della donna quelli della bbc
+        hashtags_considered = hashtags_considered + query_bbc
     else:
-        hashtags_considerati = query_bbc  # la donna non ha hashtag personali, utilizzo solo quelli della bcc
+        hashtags_considered = query_bbc  # la donna non ha hashtag personali, utilizzo solo quelli della bcc
 
-    if pd.isna(username_donna) is False:  # se la donna ha lo username
-        query = "({} OR ({} AND ({})))".format(username_donna, nome_donna, hashtags_considerati)
+    if pd.isna(username) is False:  # se la donna ha lo username
+        query = "({} OR ({} AND ({})))".format(username, name, hashtags_considered)
     else:
-        query = "({} AND ({}))".format(nome_donna, hashtags_considerati) # se la donna non ha lo username, cerco nome+hashtag
+        query = "({} AND ({}))".format(name, hashtags_considered) # se la donna non ha lo username, cerco nome+hashtag
+
+    document = {
+        'id': id_woman,
+        'name': name,
+        "number_tweets_pre_ranking": 0,
+        "number_tweets_post_ranking": 0,
+        'tweets': {
+            "pre_ranking": [],
+            "post_ranking": []
+        }
+    }
+
 
     print("\n\t\t\tINIZIO SCARICAMENTO PRIMA FINESTRA")
-    df1 = scaricamento_tweets(until1, since1, changing1, remaining_days1, complete_tweets_db, query)  # in df1 salvo i tweet che sono stati trovati pre classifica
+    df1 = download_tweets(until1, since1, changing1, remaining_days1, complete_tweets_db,
+                              query)  # in df1 salvo i tweet che sono stati trovati pre classifica
     print("\n\t\t\tFINE SCARICAMENTO PRIMA FINESTRA")
     if not df1.empty:
-        print("\n--------------------> Ho trovato {} tweets pre classifica per {} <--------------------".format(df1.shape[0], nome_donna))
+        print("\n--------------------> Ho trovato {} tweets pre classifica per {} <--------------------".format(
+            df1.shape[0], name))
+        document["number_tweets_pre_ranking"] = df1.shape[0]
         df1.set_index('id', inplace=True)
-        df1= df1[['date', 'tweet', 'language', 'hashtags', 'user_id', 'username', 'name', 'nlikes', 'nreplies', 'nretweets']]  # i campi dei tweet che intendo memorizzare
+        df1 = df1[['date', 'tweet', 'language', 'hashtags', 'user_id', 'username', 'name', 'nlikes', 'nreplies',
+                   'nretweets']]  # i campi dei tweet che intendo memorizzare
 
         for tweet in df1.itertuples():
-            if tweet not in donne_dictionary[id_donna]["tweets"]["pre-classifica"]:
-                donne_dictionary[id_donna]["tweets"]["pre-classifica"].append(tweet)
+            if tweet not in document["tweets"]["pre_ranking"]:
+                document["tweets"]["pre_ranking"].append(tweet)
     else:
-        print("\n" "--------------------> Non ho trovato tweets pre classifica per {} <--------------------".format(nome_donna))
-
+        print("\n" "--------------------> Non ho trovato tweets pre classifica per {} <--------------------".format(name))
 
     print("\n\n\t\t\tINIZIO SCARICAMENTO SECONDA FINESTRA")
-    df2 = scaricamento_tweets(until2, since2, changing2, remaining_days2, complete_tweets_db, query)  # in df2 salvo i tweet che sono stati trovati post classifica
+    df2 = download_tweets(until2, since2, changing2, remaining_days2, complete_tweets_db,
+                              query)  # in df2 salvo i tweet che sono stati trovati post classifica
     print("\n\t\t\tFINE SCARICAMENTO SECONDA FINESTRA")
     if not df2.empty:
-        print("\n" "--------------------> Ho trovato {} tweets post classifica per {} <--------------------".format(df2.shape[0], nome_donna))
+        print("\n" "--------------------> Ho trovato {} tweets post classifica per {} <--------------------".format(
+            df2.shape[0], name))
+        document["number_tweets_post_ranking"] = df2.shape[0]
         df2.set_index('id', inplace=True)
-        df2 = df2[['date', 'tweet', 'language', 'hashtags', 'user_id', 'username', 'name', 'nlikes', 'nreplies', 'nretweets']]
+        df2 = df2[
+            ['date', 'tweet', 'language', 'hashtags', 'user_id', 'username', 'name', 'nlikes', 'nreplies', 'nretweets']]
 
         for tweet in df2.itertuples():
-            if tweet not in donne_dictionary[id_donna]["tweets"]["post-classifica"]:
-                donne_dictionary[id_donna]["tweets"]["post-classifica"].append(tweet)
+            if tweet not in document["tweets"]["post_ranking"]:
+                document["tweets"]["post_ranking"].append(tweet)
     else:
-        print("\n" "--------------------> Non ho trovato tweets post classifica per {} <--------------------".format(nome_donna))
+        print("\n" "--------------------> Non ho trovato tweets post classifica per {} <--------------------".format(name))
 
-
-print(donne_dictionary)
+    documents.append(document)
 
 # salvataggio risultati
 with open('results.json', 'w', encoding="UTF-8") as f:
-    simplejson.dump(donne_dictionary, f, ignore_nan=True)
+    simplejson.dump(documents, f, ignore_nan=True)
 
 # # per fare merge di più parti
 # with open('parte1.json') as f:
