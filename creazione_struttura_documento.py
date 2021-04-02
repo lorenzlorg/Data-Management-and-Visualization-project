@@ -41,7 +41,7 @@ def costruzione_doc(year, dati_donne_indicatori_stato_anno):
   for row in dati_donne_indicatori_stato_anno.itertuples():
     donna_dati = {
             "id": row.id,
-             "nome": row.name,
+             "name": row.name,
              "image": row.image,
              "age": row.age,
              "category": row.category,
