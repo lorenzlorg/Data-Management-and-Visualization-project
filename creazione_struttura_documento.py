@@ -25,11 +25,11 @@ def costruzione_doc(year, dati_donne_indicatori_stato_anno):
   dati_donne_indicatori_stato_anno = dati_donne_indicatori_stato_anno
 
   elenco_donne = {
-      "donne vincitrici" : []
+      "winning_women" : []
   }
 
   indicatori = {
-      "indicatori": []
+      "indicators": []
   }
 
   document[anno] = []
@@ -40,39 +40,41 @@ def costruzione_doc(year, dati_donne_indicatori_stato_anno):
 
   for row in dati_donne_indicatori_stato_anno.itertuples():
     donna_dati = {
+            "id": row.id,
              "nome": row.name,
-             "img": row.img,
+             "image": row.image,
              "age": row.age,
-             "catogory": row.category,
+             "category": row.category,
              "role": row.job,
              "description": row.description
              }
     indicatori_stato = {
               "gdp":row.gdp,
-              "gdp_capite": row.gdp_pro_capita,
-              "ratio_labour": row.ratiolabour,
-              "gender_gap": row.gender_gap
+              "gdp_capita": row.gdp_pro_capita,
+              "ratio_labour": row.labour_percentage,
+              "gender_gap": row.gender_gap,
+              "human_development": row.hdi
           }
-    elenco_donne.get("donne vincitrici").append(donna_dati)
+    elenco_donne.get("winning_women").append(donna_dati)
 
-    if indicatori.get("indicatori") == []:
-      indicatori.get("indicatori").append(indicatori_stato)
+    if indicatori.get("indicators") == []:
+      indicatori.get("indicators").append(indicatori_stato)
 
-csv_db= pd.read_csv('tabelle_finali_donne_indicatori_stati/tabella_finale.csv')
+csv_db= pd.read_csv('tabelle_finali_donne_indicatori_stati/tabella_finale_finale_V3.csv')
 csv_groups= csv_db.groupby("country") # raggruppo per stato
 
 documents = []
 
-for stato in csv_groups: # ciclo sui vari stati
+for country in csv_groups: # ciclo sui vari stati
 
-  nome_stato = stato[0] # nome dello stato considerato
-  donne_indicatori_stato = stato[1] # donne vincitrici dello stato in questione + indicatori stato
+  nome_stato = country[0] # nome dello stato considerato
+  donne_indicatori_stato = country[1] # donne vincitrici dello stato in questione + indicatori stato
 
   document = {
-      "stato" : nome_stato
+      "country" : nome_stato
     }
 
-  donne_indicatori_group_year = donne_indicatori_stato.groupby('anno') # raggruppo per anno le donne vincitrici dello stato in questione
+  donne_indicatori_group_year = donne_indicatori_stato.groupby('year') # raggruppo per anno le donne vincitrici dello stato in questione
   
   for donne_indicatori_year in donne_indicatori_group_year: # considero le donne del 2015, le donne del 2020 per lo stato in questione
 
@@ -88,6 +90,6 @@ for stato in csv_groups: # ciclo sui vari stati
 
 print(documents)
 
-with open('prova.json', 'w') as f:
+with open('countries_women.json', 'w') as f:
   simplejson.dump(documents, f, ignore_nan=True)
   # json.dump(documents, f, cls=NumpyEncoder)
