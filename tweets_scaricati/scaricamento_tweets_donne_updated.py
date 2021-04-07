@@ -86,24 +86,16 @@ for row in df_women_redux.itertuples():
     # impostazione date, pre e post classifica
     if row.year == 2015:
         # prima finestra
-        # BUONO until1 = datetime(2015, 11, 16, 00, 00, 00)
         until1 = datetime(2015, 11, 16, 00, 00, 00)
-
         until1 = until1 + timedelta(days=1)  # per considerare tutte le 24 ore del primo giorno
-        # BUONO since1 = datetime(2015, 9, 1, 00, 00, 00)
         since1 = datetime(2015, 9, 1, 00, 00, 00)
-
         changing1 = until1 - timedelta(days=1)
         remaining_days1 = int(str(changing1 - since1).split()[0])
 
         # seconda finestra
-        # BUONO until2 = datetime(2016, 2, 1, 00, 00, 00)
         until2 = datetime(2016, 2, 1, 00, 00, 00)
-
         until2 = until2 + timedelta(days=1)  # per considerare tutte le 24 ore del primo giorno
-        # BUONO since2 = datetime(2015, 11, 17, 00, 00, 00)
         since2 = datetime(2015, 11, 17, 00, 00, 00)
-
         changing2 = until2 - timedelta(days=1)
         remaining_days2 = int(str(changing2 - since2).split()[0])
 
@@ -176,14 +168,13 @@ for row in df_women_redux.itertuples():
         # concatenated.drop_duplicates(subset="id", keep="first", inplace=True)
         concatenated_clean = concatenated.drop_duplicates(subset="id", keep="first", inplace=False)
         if concatenated.shape != concatenated_clean.shape:
-            print("ho trovato ed eliminato alcun duplicati")
+            print("ho trovato ed eliminato alcuni duplicati")
         else:
             print("non ho trovato duplicati")
-        df1 = concatenated.loc[concatenated['type'] == "df1"] # df1 pulito
-        df2 = concatenated.loc[concatenated['type'] == "df2"] # df2 pulito
+        df1 = concatenated_clean.loc[concatenated['type'] == "df1"] # df1 pulito
+        df2 = concatenated_clean.loc[concatenated['type'] == "df2"] # df2 pulito
 
-    # df1 = download_tweets(until1, since1, changing1, remaining_days1, complete_tweets_db,
-    #                           query)  # in df1 salvo i tweet che sono stati trovati pre classifica
+
     if not df1.empty:
         print("\n--------------------> Ho trovato {} tweets pre classifica per {} <--------------------".format(
             df1.shape[0], name))
@@ -198,8 +189,7 @@ for row in df_women_redux.itertuples():
     else:
         print("\n" "--------------------> Non ho trovato tweets pre classifica per {} <--------------------".format(name))
 
-    # df2 = download_tweets(until2, since2, changing2, remaining_days2, complete_tweets_db,
-    #                           query)  # in df2 salvo i tweet che sono stati trovati post classifica
+
     if not df2.empty:
         print("\n" "--------------------> Ho trovato {} tweets post classifica per {} <--------------------".format(
             df2.shape[0], name))
@@ -220,11 +210,13 @@ for row in df_women_redux.itertuples():
 with open('../risultati.json', 'w', encoding="UTF-8") as f:
     simplejson.dump(documents, f, ignore_nan=True)
 
-# # per fare merge di più parti
-with open('../133_143.json') as f:
-    data1 = json.load(f)
-#
-# with open('parte2.json') as f:
-#     data2 = json.load(f)
-#
-# output_final_merging = merge(data1, data2)
+# per fare merge di più parti
+files=['parte_1.json','parte_2.json','parte_3.json']
+def merge_JsonFiles(filename):
+    result = list()
+    for f1 in filename:
+        with open(f1, 'r') as infile:
+            result.extend(json.load(infile))
+    with open('final_output_giorgia.json', 'w') as output_file:
+        json.dump(result, output_file)
+merge_JsonFiles(files)
