@@ -71,7 +71,7 @@ def download_tweets(until, since, changing, remaining_days, complete_tweets_db, 
 
 
 # lista donne bbc
-df_women = pd.read_csv("../tweets donne Lorenzo/donne_da_scaricare_1.csv", sep=',')
+df_women = pd.read_csv("tweets donne Giorgia/tabella_finale_finale_parte_giorgia_3.csv", sep=',')
 df_women_redux = df_women[["id", "name", "username_twitter", "hashtag", "year"]]
 
 documents=[]
@@ -207,7 +207,7 @@ for row in df_women_redux.itertuples():
     documents.append(document)
 
 # salvataggio risultati
-with open('../risultati.json', 'w', encoding="UTF-8") as f:
+with open('parte_3.json', 'w', encoding="UTF-8") as f:
     simplejson.dump(documents, f, ignore_nan=True)
 
 # per fare merge di più parti
@@ -217,6 +217,6 @@ def merge_JsonFiles(filename):
     for f1 in filename:
         with open(f1, 'r') as infile:
             result.extend(json.load(infile))
-    with open('final_output_giorgia.json', 'w') as output_file:
+    with open('tweets donne Giorgia/final_output_giorgia.json', 'w') as output_file:
         json.dump(result, output_file)
 merge_JsonFiles(files)
