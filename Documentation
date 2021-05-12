@@ -64,10 +64,13 @@ _tabelle_dati_viz/final_output_pulito.csv_
 
 In particolare, riguardo le **visualizzazioni**:  
 
-- per mostrare andamento tweets (polar seasonal plot, heatmap, serie temporale): _tabelle_dati_viz/daily_tweet/num_tweet_daily_2015_2020.csv_
+- per mostrare andamento tweets (polar seasonal plot, heatmap, serie temporale): _tabelle_dati_viz/daily_tweet/num_tweet_daily_2015_2020.csv_,
+dal 2015 al 2020
 
-- per mostrare variazione popolarità donne (viz giorgia): _tabelle_dati_viz/final_output_pulito.csv_
+- per mostrare variazione popolarità donne (viz giorgia): _tabelle_dati_viz/final_output_pulito.csv_, 2015 e 2019 anni
 
-- per mostrare identikit donna (dashboard alessandro): _tabelle_finali_donne_indicatori_stati/info_identikit_donne.xlsx_ 
+- per mostrare identikit donna (dashboard alessandro): _tabelle_finali_donne_indicatori_stati/info_identikit_donne.xlsx_,
+2015 e 2019 anni
 
-- per mostrare analisi indicatori (matrice correlazione, mappa geografica): _tabelle_dati_viz/indicatori_stati_nomidonne.csv_
+- per mostrare analisi indicatori (matrice correlazione, mappa geografica??): _tabelle_dati_viz/indicatori_stati_nomidonne.csv_,
+2015 e 2019 anni
