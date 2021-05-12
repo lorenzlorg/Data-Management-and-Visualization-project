@@ -47,9 +47,9 @@ classifica, compresi tutti i tweet.
 
 Il file _producer_tweets_kafka_ invece è lo script che permette di simulare la velocità interfacciandosi con kafka.
 
-**file creazione_struttura_documento**: questo script serve per rimodellare _tabelle_finali_donne_indicatori_stati/tabella_finale_finale_V3.csv_
-in formato json, ottenendo _countries_women.csv_. L'obiettivo era quello di utlizzare tale file per viz ma dato il formato 
-ci sono stati dei problemi. 
+**cartella dati_formato_json**: lo script _dati_formato_json/creazione_struttura_documento.py_ serve per 
+rimodellare _tabelle_finali_donne_indicatori_stati/tabella_finale_finale_V3.csv_ in formato json, ottenendo _countries_women.csv_. 
+L'obiettivo era quello di utlizzare tale file per viz ma dato il formato ci sono stati dei problemi. 
 
 Dunque i file di output rilevanti per le nostre analisi sono:  
 - **tabella_finale_finale_V3**, relativa agli anni 2015 e 2019, contente info delle donne vincitrici e info dei rispettivi
