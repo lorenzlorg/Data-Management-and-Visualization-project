@@ -1,0 +1,206 @@
+\documentclass[11pt, a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{authblk}
+\usepackage{sectsty,lmodern} % per modificare il font dei titoli dei capitoli
+\usepackage[margin=0.7in]{geometry} % set the margins
+\usepackage{graphicx} % for images
+\usepackage{pdfpages} % serve per poi inserire la frontpage magari creata con Scribus
+\usepackage[english, italian]{babel}
+\usepackage{tcolorbox} % per creare il box dell'abstract
+\usepackage{capt-of}%%To get the caption
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{ctable} % for \specialrule command
+\usepackage{blindtext}
+\usepackage{hyperref} % per inserire link cliccabili all'interno del testo
+\usepackage{url}            % simple URL typesetting
+
+
+
+\title{\line(1,0){530}\\ \vspace{10px} Università degli Studi di Milano-Bicocca \\
+	PROGETTO DATA MANAGEMENT \& DATA VISUALIZATION \line(1,0){530}\\ \vspace{-5px}}
+
+\author[*]{Giorgia Antonicelli 000000}
+\author[*]{Lorenzo Lorgna 000000}
+\author[*]{Alessandro Maccario 865682}
+
+\date{} % clear date per non inserire ogni volta la data di running del file
+\affil[*]{CdLM Data Science, Università degli Studi di Milano Bicocca}
+
+\renewcommand\Authands{, }
+
+\chapternumberfont{\fontsize{35pt}{32pt}\selectfont}
+\chaptertitlefont{\fontsize{12pt}{18pt}\selectfont}
+
+
+\begin{document}
+\maketitle
+	
+	% Una volta creata la frontpage con Scribus e inserita nella stessa cartella in cui si ha questo stesso file è possibile richiamarlo in "includepdf" tramite il titolo inserendola come prima pagina
+	%\begin{titlepage}
+	%	\includepdf{title}
+	%\end{titlepage}
+	
+\tableofcontents
+	
+\selectlanguage{english} % Necessario per avere il titolo "Abstract" e non "Sommario" in italiano 
+	
+	
+%------------------------------------------------------------------------------------------------
+\newpage
+%------------------------------------------------------------------------------------------------
+
+	
+\begin{tcolorbox}[colframe=blue!75!black]
+	\begin{abstract}
+		QUI CI VA L'ABSTRACT!!!
+	\end{abstract}
+\end{tcolorbox}
+	
+	\selectlanguage{italian} % necessario per avere il titolo "Riferimenti bibliografici" in italiano e non come "References"
+	
+	\vspace{15px}
+	
+	
+	\chapter{Data Management}
+	
+	\chapter[Data Visualization]{Progettazione, implementazione e valutazione delle visualizzazioni}
+	
+	%--------------  PROGETTAZIONE --------------%
+	\section{Progettazione}
+	
+	L'intenzione alla base del progetto è stata quella di valutare l'impatto che la lista della BBC ha sulla popolarità, tramite Twitter, delle donne nominate. I dati scaricati dal social network sono poi stati integrati grazie ad altre fonti per ottenere diverse \textit{feature} in grado di fornire un quadro più ampio del fenomeno in studio, come ad esempio quello di analizzare l'evento nel corso degli anni dal 2015 al 2019. Ci si è poi concentrati su due anni in particolare, ovvero il primo e l'ultimo. Tale scelta è stata basata sul considerare sufficiente un periodo temporale distanziati di quattro anni (e non cinque a causa del particolare anno del COVID) e in grado di fornire un'immagine dei cambiamenti in termini di interesse della comunità femminile presente su Twitter rispetto all'evento. \\
+	
+	Concluso il lavoro di raccolta, pulizia, elaborazione e analisi dei dati, le infografiche che vengono di seguito presentate ne sono il risultato ottenute tramite l'utilizzo del software \textit{Tableau}. Una volta valutate tramite una \textit{valutazione euristica}, un \textit{questionario psicometrico} (nello specifico, è stato utilizzato il Cabitza-Locoro) e uno \textit{user test} sono stati ottenuti i grafici di valutazione della qualità riportati di seguito e creati utilizzando diversi script in linguaggio \textit{R}. \\
+	
+	Complessivamente, si sono visualizzati $ 5 $ aspetti di interesse:
+	
+	\begin{itemize}
+		\item Infografica 1: Heatmap, per mostrare l'andamento del numero di tweet nel corso degli anni dal 2015 al 2019;
+		\item Infografica 2: Lollipop, per analizzare da un punto di vista descrittivo la composizione delle categorie stabilite dalla BBC, l'età mediana e il numero di donne per ciascuna categoria;
+		\item Infografica 3: Alluvial diagram, per visualizzare la relazione tra categorie, provenienza geografica e popolarità delle donne;
+		\item Infografica 4: Scatterplot, per mostrare più nello specifico gli stati di appartenenza delle donne nominate nella lista e i dati relativi ai paesi di provenienza. Vengono nominate più donne provenienti da stati ricchi/più sviluppati o vicevera?
+		\item Infografica 5: Boxplot/Barplot, per indicare l'impatto della nomination rispetto al numero di tweet per ciascuna donna pre-pubblicazione e post-pubblicazione.
+	\end{itemize}
+	
+	In sintesi, le domande di ricerca a cui si è voluto rispondere anche tramite le visualizzazioni sono state:
+	
+	\begin{enumerate}
+		\item 
+		\item 
+		\item 
+	\end{enumerate}
+	
+	In una prima fase di progettazione, non molto dissimile dal risultato finale, venivano visualizzati il numero di tweet per singolo giorno nell'anno $ 2015 $ o $ 2019 $. Il colore rosa aveva l'obiettivo di indicare il mondo femminile e richiamava, almeno in parte, il colore utilizzato come tema per l' \href{https://www.internationalwomensday.com/}{International Women's Day}. La visualizzazione era stata corredata del context necessario a rendere chiari alcuni istanti temporali ben precisi a sottolineare la colorazione più intensa dovuta all'aumento del numero di tweets della giornata, tutti incentrati su uno specifico tema del mondo femminile.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[totalheight=8cm]{heatmap_2019.png}
+		\caption{Prima fase di progettazione (esempio della Heatmap)}
+		\label{fig:prima_fase_progettazione_esempio_heatmap}
+	\end{figure}
+	
+	Lo stesso procedimento è stato applicato anche all'Alluvial diagram INSERIRE ALL'ALLUVIAL DIAGRAM DELLA PRIMA ORA E INSERIRCI UN COMMENTO, COME ANCHE PER ESEMPIO LO SCATTERPLOT DELLA PRIMA ORA CON UN COMMENTO. DOPODICHé PASSARE DIRETTAMENTE ALLA FASE DI IM
+	
+		
+	%--------------  IMPLEMENTAZIONE --------------%
+	\section{Implementazione}
+	
+
+
+	%--------------  VALUTAZIONE --------------%
+	\section{Valutazione}
+	
+	QUI INSERI
+
+
+	
+	%--------------  VALUTAZIONE EURISTICA --------------%
+	
+	\subsection{Valutazione Euristica}
+	
+	
+	%--------------  QUESTIONARIO PSICOMETRICO --------------%
+	
+	\subsection{Questionario Psicometrico}
+	
+	%--------------  USER TEST --------------%
+	
+	\subsection{User test}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+%------------------------------------------------------------------------------------------------
+\newpage
+%------------------------------------------------------------------------------------------------
+
+
+\begin{thebibliography}{100}
+	
+\bibitem{Country codes}
+Country Code
+\url{https://www.iban.com/country-codes}
+
+\bibitem{BBC Women 2020}
+BBC 100 Women
+\url{https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-12-08/women.csv}
+
+\bibitem{GDP Country}
+GDP Country
+\url{https://www.imf.org/external/datamapper/NGDPD@WEO/OEMDC/ADVEC/WEOWORLD}
+
+\bibitem{GDP per capita Country}
+GDP per capita Country
+\url{https://www.imf.org/external/datamapper/NGDPDPC@WEO/OEMDC/ADVEC/WEOWORLD}
+
+\bibitem{Labour percentage}
+GDP per capita Country
+\url{https://databank.worldbank.org/source/gender-statistics/preview/on}
+
+\bibitem{Gender Global Gap 2015}
+Gender Global Gap 2020
+\url{https://reports.weforum.org/global-gender-gap-report-2015/rankings/}
+
+\bibitem{Gender Global Gap 2020}
+Gender Global Gap 2020
+\url{https://reports.weforum.org/global-gender-gap-report-2020/the-global-gender-gap-index-2020-rankings/}
+
+\bibitem{HDI}
+Human Development Index
+\url{http://hdr.undp.org/en/indicators/137506}	
+	
+	
+	
+	
+\end{thebibliography}
+
+
+	
+	
+\end{document}
