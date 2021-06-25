@@ -1,3 +1,5 @@
+# lo script viene eseguito per ogni singolo anno (viene riportato lo script per l'anno 2015)
+# la prima parte di script viene eseguita in ambiente R
 """
 script R
 
@@ -51,7 +53,3 @@ merge.reset_index(inplace=True)
 del merge['index']
 
 merge.to_csv('2015.csv', index = False)
-
-
-# eseguo tutto ciò per ogni anno
-

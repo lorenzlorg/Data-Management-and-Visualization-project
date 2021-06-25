@@ -14,11 +14,11 @@ dei tweet durante l'anno, vedere come la classfica ha sensibilizzato o meno sul 
 se le 3 settimane di  eventi volti a promuovere l'evento sono state efficaci o meno. Le seguenti tabelle sono state ottenute 
 tramite manipolazione in R/Python dei file contenuti in _tweets_scaricati/tweets 2015-2020_.
 
-- _final_output_pulito_: (check versione) viene utilizzato per controllare variazione numero tweet per ciascuna donna 
-(2015 e 2019). Dopo aver creato la struttura completa mediante lo script _scaricamento_tweets_donne_updated_ e aver ottenuto
-il file _tweets_scaricati/final_output.json_ (comprende donna, numero tweet pre e post classifica, tweet) si considera 
+- _tweets_donne_scaricati_viz_: viene utilizzato per controllare variazione numero tweet per ciascuna donna 
+(2015 e 2019). Dopo aver creato la struttura completa mediante lo script _scaricamento_tweets_donne_ e aver ottenuto
+il file _tweets_scaricati/tweets_donne_scaricati.json_ (comprende donna, numero tweet pre e post classifica, tweet) si considera 
 solo una porzione di esso. I campi presi in considerazione sono donna, numero tweet pre e post classifica,tralasciando 
-dunque i tweet veri e propri. Il relativo script per apportare tale modifica è _tweets_scaricati/redux_field_tweets.py_
+dunque i tweet veri e propri. Il relativo script per apportare tale modifica è nella parte finale dello script _scaricamento_tweets_donne_
 
 - _indicatori_stati_nomidonne_: utilizziamo questi dati per viz indicatori e sono ricavati da _tabelle_finali_donne_indicatori_stati_
 
@@ -38,11 +38,11 @@ per viz identikit donne.
 all'evento della bbc (il relativo script è _scaricamento_tweets_bbc100women_). Questi dati sono stati scaricati per capire 
 l'andamento del numero di tweet pre e post classifica.   
 
-Il file _scaricamento_tweets_donne_updated_ è invece relativo allo scaricamento dei tweets per ogni donna (usando gli hashtag
+Il file _scaricamento_tweets_donne_ è invece relativo allo scaricamento dei tweets per ogni donna (usando gli hashtag
 della donna in questione oltre a quelli della BBC). Questi dati servono per capire come la popolarità delle donne è 
 cambiata con l'uscita della classifica.  
 
-Il file _final_output.json_ (link in _tweets_donne_) contiene dunque per ogni donna il conteggio dei tweet pre e post
+Il file _tweets_donne_scaricati.json_ (link in _tweets_donne_) contiene dunque per ogni donna il conteggio dei tweet pre e post
 classifica, compresi tutti i tweet.  
 
 Il file _producer_tweets_kafka_ invece è lo script che permette di simulare la velocità interfacciandosi con kafka.
@@ -55,9 +55,9 @@ Dunque i file di output rilevanti per le nostre analisi sono:
 - **tabella_finale_finale_V3**, relativa agli anni 2015 e 2019, contente info delle donne vincitrici e info dei rispettivi
 stati di provenienza. Da questa derivano (_tabelle_finali_donne_indicatori_stati/info_identikit_donne.xlsx_ e 
 _tabelle_finali_donne_indicatori_stati/indicatori_stati_nomidonne.csv_), tramite scirpt appositi.
-- **final_output.json**, relativo agli anni 2015 e 2019, contenente info base delle donne vincitrici, numero tweet pre 
+- **tweets_donne_scaricati.json**, relativo agli anni 2015 e 2019, contenente info base delle donne vincitrici, numero tweet pre 
 e post classifica, tweet pubblicati (cercati usando hashtag delle donne e BBC). Da questo deriva il file 
-_tabelle_dati_viz/final_output_pulito.csv_
+_tabelle_dati_viz/tweets_donne_scaricati_viz.csv_
 - **tweets_2015.csv ... tweets_2019.csv** che contengono tutti i tweet pubblicati nell'anno considerato (2015-2016-2017-
 2018-2019-2020) con gli hashtag della BBC. Da questi derivano i vari file _tabelle_dati_viz/daily_tweet/num_tweet_daily_....csv_
 
@@ -67,7 +67,7 @@ In particolare, riguardo le **visualizzazioni**:
 - per mostrare andamento tweets (polar seasonal plot, heatmap, serie temporale): _tabelle_dati_viz/daily_tweet/num_tweet_daily_2015_2020.csv_,
 dal 2015 al 2020
 
-- per mostrare variazione popolarità donne (viz giorgia): _tabelle_dati_viz/final_output_pulito.csv_, 2015 e 2019 anni
+- per mostrare variazione popolarità donne (viz giorgia): _tabelle_dati_viz/tweets_donne_scaricati_viz.csv_, 2015 e 2019 anni
 
 - per mostrare identikit donna (dashboard alessandro): _tabelle_finali_donne_indicatori_stati/info_identikit_donne.xlsx_,
 2015 e 2019 anni

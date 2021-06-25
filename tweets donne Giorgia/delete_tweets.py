@@ -2,7 +2,7 @@ import os
 import json
 
 tweets = "tweets"
-with open('final_output.json', 'r') as dataFile:
+with open('tweets_donne_scaricati.json', 'r') as dataFile:
     data = json.load(dataFile)
 
 # print(data)
@@ -17,7 +17,7 @@ with open('output_redux.json', 'w') as dataFile:
 
 import json
 
-with open('final_output.json') as data_file:
+with open('tweets_donne_scaricati.json') as data_file:
     data = json.load(data_file)
 
 for element in data:

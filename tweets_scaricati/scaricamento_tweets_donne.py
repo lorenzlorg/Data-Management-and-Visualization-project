@@ -71,7 +71,8 @@ def download_tweets(until, since, changing, remaining_days, complete_tweets_db, 
 
 
 # lista donne bbc
-df_women = pd.read_csv("tweets donne Giorgia/tabella_finale_finale_parte_giorgia_3.csv", sep=',')
+# df_women = pd.read_csv("tweets donne Giorgia/tabella_finale_finale_parte_giorgia_3.csv", sep=',')
+df_women = pd.read_csv("tabelle_finali_donne_indicatori_stati/tabella_finale_finale_V3.csv", sep=',')
 df_women_redux = df_women[["id", "name", "username_twitter", "hashtag", "year"]]
 
 documents=[]
@@ -207,16 +208,47 @@ for row in df_women_redux.itertuples():
     documents.append(document)
 
 # salvataggio risultati
-with open('parte_3.json', 'w', encoding="UTF-8") as f:
+with open('tweets_donne_scaricati.json', 'w', encoding="UTF-8") as f:
     simplejson.dump(documents, f, ignore_nan=True)
 
+
 # per fare merge di più parti
-files=['parte_1.json','parte_2.json','parte_3.json']
-def merge_JsonFiles(filename):
-    result = list()
-    for f1 in filename:
-        with open(f1, 'r') as infile:
-            result.extend(json.load(infile))
-    with open('tweets donne Giorgia/final_output_giorgia.json', 'w') as output_file:
-        json.dump(result, output_file)
-merge_JsonFiles(files)
+# files=['parte_1.json','parte_2.json','parte_3.json']
+# def merge_JsonFiles(filename):
+#     result = list()
+#     for f1 in filename:
+#         with open(f1, 'r') as infile:
+#             result.extend(json.load(infile))
+#     with open('final_output', 'w') as output_file:
+#         json.dump(result, output_file)
+# merge_JsonFiles(files)
+
+
+# per creare una versione dei dati adatta per le visualizzazioni
+
+# apro il file
+with open('tweets_donne_scaricati.json', 'r') as dataFile:
+    data_json_finale = json.load(dataFile)
+
+# ne creo una copia per evitare di pasticciare su quello caricato
+copia_json = data_json_finale.copy()
+
+# per ogni elemento presente, elimina il campo tweets se esiste (possibili
+# anche toglierlo esistendo sempre nel nostro caso)
+for element in copia_json:
+    if 'tweets' in element:
+        del element['tweets']
+
+# salvataggio risultati
+with open('tweets_donne_scaricati_viz.json', 'w', encoding="UTF-8") as f:
+    simplejson.dump(copia_json, f, ignore_nan=True)
+
+# Riapro il file salvato
+with open('tweets_donne_scaricati_viz.json') as json_file:
+    data_da_convertire = json.load(json_file)
+
+# creo un oggetto e lo esporto in csv
+pdObj = pd.read_json('tweets_donne_scaricati_viz.json')
+export_csv = pdObj.to_csv (r'tweets_donne_scaricati_viz.csv', header=True)
+
+pdObj.to_csv(index=False)

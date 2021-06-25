@@ -1,8 +1,8 @@
 import pandas as pd
 
-# Apertura e lettura file "tabella_finale_finale_V3.csv e "final_output_pulito.csv"
+# Apertura e lettura file "tabella_finale_finale_V3.csv e "tweets_donne_scaricati_viz.csv"
 df_csv = pd.read_csv('tweets donne Alessandro/tabella_finale_finale_V3_MOD_Alessandro.csv')
-df_csv_women = pd.read_csv('tweets donne Alessandro/final_output_pulito.csv')
+df_csv_women = pd.read_csv('tweets donne Alessandro/tweets_donne_scaricati_viz.csv')
 
 # Rinomina colonne per poter poi droppare i doppioni
 df_csv_women.rename(columns={'name': 'name_clean', 'Unnamed: 0': 'Unnamed_clean', 'id': 'id_clean'}, inplace=True)
