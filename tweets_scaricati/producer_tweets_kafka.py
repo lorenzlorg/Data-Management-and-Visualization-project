@@ -27,18 +27,20 @@ import time
 
 # producer creation
 
+
+
 producer = KafkaProducer(
     bootstrap_servers = ["kafka:9092"],
     value_serializer = lambda v: json.dumps(v).encode("UTF-8"))
 
 # lettura file json tweets scaricati
 
-tweets_final = json.load(open("tweets_scaricati_23_26_novembre.json"))
+tweets_final = json.load(open("tweets_2020.json"))
 
 # tweets -> topic -> mongodb
 
 for tweet in tweets_final:
     # print(tweet)
-    producer.send(topic='tweets_nifi_consumer', value=tweet)
+    producer.send(topic='tweets', value=tweet)
     # print("tweet delivered")
     # time.sleep(2)
