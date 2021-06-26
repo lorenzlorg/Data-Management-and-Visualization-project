@@ -18,8 +18,8 @@ vari indicatori.
 informazioni relative alle donne (name,age,username_twitter,hashtag,job,description,image,category,country,year) e 
 informazioni relativi agli stati di appartenza (gdp,gdp_pro_capita,labour_percentage,gender_gap,percentuale_ministre,
 percentuale_parlamentari,hdi), il tutto presente nella cartella _dati_donne_indicatori_stati_. Questi dati sono relativi
-agli anni 2015 e 2019.  
-Dai dati aggregati viene ricavata la tabella _indicatori_stati_nomidonne_ ed essa viene utilizzata per viz indicatori.   
+agli anni 2015 e 2019. Si ottiene la tabella _indicatori_stati_nomidonne_v1_
+Dai dati aggregati viene ricavata la tabella _indicatori_stati_nomidonne_v2_ (ottenuta da leggere modifche effettuate sulla tabella _indicatori_stati_nomidonne_v1_) ed essa viene utilizzata per viz indicatori.   
 Inoltre viene creata sempre a partire dai dati aggregati una nuova tabella _info_identikit_donne_ che viene utilizzata 
 per viz identikit donne.
 
@@ -38,7 +38,7 @@ il file _tweets_scaricati/tweets_donne_scaricati.json_ (comprende donna, numero 
 solo una porzione di esso. I campi presi in considerazione sono donna, numero tweet pre e post classifica,tralasciando 
 dunque i tweet veri e propri. Il relativo script per apportare tale modifica è nella parte finale dello script _scaricamento_tweets_donne_
 
-- _indicatori_stati_nomidonne_: utilizziamo questi dati per viz indicatori e sono ricavati da _tabelle_finali_donne_indicatori_stati_
+- _indicatori_stati_nomidonne_v2_: utilizziamo questi dati per viz indicatori e sono ricavati da _tabelle_finali_donne_indicatori_stati_
 
 - _info_identikit_donne_: utilizziamo questi dati per identikit donne e sono ricavati da tabelle_finali_donne_indicatori_stati
 
@@ -78,10 +78,10 @@ Per quanto riguarda le **visualizzazioni**:
 - per mostrare andamento tweets (heatmap): _tabelle_dati_viz/daily_tweet/num_tweet_daily_2015_2020.csv_,
 dal 2015 al 2020
 
-- per mostrare variazione popolarità donne (box plot e bar chart): _tabelle_dati_viz/tweets_donne_scaricati_viz.csv_, 2015 e 2019 anni
+- per mostrare variazione popolarità donne (box plot e bar chart): _tabelle_dati_viz/tweets_donne_scaricati_viz.csv_, 2015 e 2019 anni (in realtà viene usata  _tabelle_finali_donne_indicatori_stati/info_identikit_donne.xlsx_)
 
 - per mostrare identikit donna (lollipop e alluvional): _tabelle_finali_donne_indicatori_stati/info_identikit_donne.xlsx_,
 2015 e 2019 anni
 
-- per mostrare analisi indicatori (scatterplot): _tabelle_dati_viz/indicatori_stati_nomidonne.csv_,
+- per mostrare analisi indicatori (scatterplot): _tabelle_dati_viz/indicatori_stati_nomidonne_v2.csv_,
 2015 e 2019 anni

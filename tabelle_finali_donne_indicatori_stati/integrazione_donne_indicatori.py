@@ -103,35 +103,6 @@ tot_15.to_csv('integrazione_2015.csv')
 totale = pd.concat([tot_15, tot_19])
 totale1= totale.dropna(subset=['Country'])
 totale2= totale1[['Country', 'year','gdp', 'gdp_pro_capita', 'labour_percentage', 'gender_gap', 'hdi', 'name']]
-totale2.to_csv('Stati_donne.csv')
+totale2.to_csv('indicatori_stati_nomidonne_v1.csv')
 
 
-
-
-
-
-
-# pivot - per viz
-
-gdp_gdpcapite_labor_ggg_hdi1= gdp_gdpcapite_labor_ggg_hdi1[['Country', 'gdp', 'gdp_pro_capita', 'labour_percentage','gender_gap', 'hdi']]
-tot_15=gdp_gdpcapite_labor_ggg_hdi1
-tot_15['year']=2015
-
-gdp_gdpcapite_labor_ggg_hdi= gdp_gdpcapite_labor_ggg_hdi[['Country', 'gdp', 'gdp_pro_capita', 'labour_percentage','gender_gap', 'hdi']]
-tot_19= gdp_gdpcapite_labor_ggg_hdi
-tot_19['year']=2019
-
-totale = pd.concat([tot_15, tot_19])
-totale1= totale.dropna(subset=['Country'])
-
-bbc2015['year']=2015
-bbc2019['year']=2019
-
-final= pd.melt(totale1, id_vars=['Country', 'year'])
-final1= pd.merge(final, bbc2015, how='outer', on=['Country', 'year'])
-final2= pd.merge(final1, bbc2019, how='outer', on=['Country', 'year'])
-final3= final2[['Country', 'year', 'variable', 'value', 'name_x', 'name_y']]
-final3['name'] = final3['name_x'].fillna('') + final3['name_y'].fillna('')
-final_final=final3[['Country', 'year', 'variable', 'value', 'name']]
-pd.to_numeric(final_final['value'], errors='coerce')
-final_final.to_csv('stati_pivot_donne.csv')

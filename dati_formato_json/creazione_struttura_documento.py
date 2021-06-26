@@ -50,7 +50,7 @@ def costruzione_doc(year, dati_donne_indicatori_stato_anno):
     if indicatori.get("indicators") == []:
       indicatori.get("indicators").append(indicatori_stato)
 
-csv_db= pd.read_csv('tabelle_finali_donne_indicatori_stati/tabella_finale_finale_V3.csv')
+csv_db= pd.read_csv('tabelle_finali_donne_indicatori_stati/indicatori_stati_nomidonne_v3.csv')
 csv_groups= csv_db.groupby("country") # raggruppo per stato
 
 documents = []
