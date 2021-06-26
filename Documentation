@@ -1,10 +1,28 @@
-**cartella dati_donne_indicatori_stati**: sono contentute le classifiche bbc 100 women per gli anni 2015 e 2019. La 
-classifica bbc 100 women 2020 non è stata utilizzata. Inoltre sono presenti le tabelle (e relativi script) con i dati 
+In sintesi:
+- partendo dai dati _dati_donne_indicatori_stati_ sono state create le _tabelle_finali_donne_indicatori_stati_ (contenenti i dati complessivi di donne, stati, indicatori stati)
+- sono stati scaricati i tweets (_tweets_scaricati_) relativi all'evento BBC 100 Women per ogni anno e i tweets (_tweets_donne_scaricati_) associati alle singole donne
+- sono state apportate delle modifiche sui dati in modo tale che potessero essere usati per le visualizzazioni (_tabelle_dati_viz_)
+- i dati sono stati raccolti in un'unica collezione in formato json, sottoforma di documenti annindati (_dati_formato_json_)
+
+
+**cartella dati_donne_indicatori_stati**: sono contentute le liste BBC 100 Women per gli anni 2015 e 2019. La 
+lista BBC 100 Women 2020 non è stata utilizzata. Inoltre sono presenti le tabelle (e relativi script) con i dati 
 relativi ai singoli indicatori degli stati (hdi, gdp, gender gap ...). Di alcuni di questi come la percentuale delle 
 ministre vi sono diversi valori null.  
 
 Il file _fonti_dati_integrazione_ contiene le fonti da cui sono stati scaricati i 
 vari indicatori.
+
+
+**cartella tabelle_finali_donne_indicatori_stati**: tramite lo script _integrazione_donne_indicatori_ vengono unite 
+informazioni relative alle donne (name,age,username_twitter,hashtag,job,description,image,category,country,year) e 
+informazioni relativi agli stati di appartenza (gdp,gdp_pro_capita,labour_percentage,gender_gap,percentuale_ministre,
+percentuale_parlamentari,hdi), il tutto presente nella cartella _dati_donne_indicatori_stati_. Questi dati sono relativi
+agli anni 2015 e 2019.  
+Dai dati aggregati viene ricavata la tabella _indicatori_stati_nomidonne_ ed essa viene utilizzata per viz indicatori.   
+Inoltre viene creata sempre a partire dai dati aggregati una nuova tabella _info_identikit_donne_ che viene utilizzata 
+per viz identikit donne.
+
 
 **cartella tabelle_dati_viz**: contiene le tabelle dati riadattate per consentire di effettuare le visualizzazioni in 
 maniera più efficiente.  
@@ -25,15 +43,6 @@ dunque i tweet veri e propri. Il relativo script per apportare tale modifica è 
 - _info_identikit_donne_: utilizziamo questi dati per identikit donne e sono ricavati da tabelle_finali_donne_indicatori_stati
 
 
-**cartella tabelle_finali_donne_indicatori_stati**: tramite lo script _integrazione_donne_indicatori_ vengono unite 
-informazioni relative alle donne (name,age,username_twitter,hashtag,job,description,image,category,country,year) e 
-informazioni relativi agli stati di appartenza (gdp,gdp_pro_capita,labour_percentage,gender_gap,percentuale_ministre,
-percentuale_parlamentari,hdi), il tutto presente nella cartella _dati_donne_indicatori_stati_. Questi dati sono relativi
-agli anni 2015 e 2019.  
-Dai dati aggregati viene ricavata la tabella _indicatori_stati_nomidonne_ ed essa viene utilizzata per viz indicatori.   
-Inoltre viene creata sempre a partire dai dati aggregati una nuova tabella _info_identikit_donne_ che viene utilizzata 
-per viz identikit donne.
-
 **cartella tweets_scaricati**: vi sono tutti i tweets scaricati dal 2015 al 2020, utilizzando particolari hashtag relativi 
 all'evento della bbc (il relativo script è _scaricamento_tweets_bbc100women_). Questi dati sono stati scaricati per capire 
 l'andamento del numero di tweet pre e post classifica.   
@@ -47,9 +56,11 @@ classifica, compresi tutti i tweet.
 
 Il file _producer_tweets_kafka_ invece è lo script che permette di simulare la velocità interfacciandosi con kafka.
 
+
 **cartella dati_formato_json**: lo script _dati_formato_json/creazione_struttura_documento.py_ serve per 
 rimodellare _tabelle_finali_donne_indicatori_stati/tabella_finale_finale_V3.csv_ in formato json, ottenendo _countries_women.csv_. 
 L'obiettivo era quello di utlizzare tale file per viz ma dato il formato ci sono stati dei problemi. 
+
 
 Dunque i file di output rilevanti per le nostre analisi sono:  
 - **tabella_finale_finale_V3**, relativa agli anni 2015 e 2019, contente info delle donne vincitrici e info dei rispettivi
@@ -62,15 +73,15 @@ _tabelle_dati_viz/tweets_donne_scaricati_viz.csv_
 2018-2019-2020) con gli hashtag della BBC. Da questi derivano i vari file _tabelle_dati_viz/daily_tweet/num_tweet_daily_....csv_
 
 
-In particolare, riguardo le **visualizzazioni**:  
+Per quanto riguarda le **visualizzazioni**:  
 
-- per mostrare andamento tweets (polar seasonal plot, heatmap, serie temporale): _tabelle_dati_viz/daily_tweet/num_tweet_daily_2015_2020.csv_,
+- per mostrare andamento tweets (heatmap): _tabelle_dati_viz/daily_tweet/num_tweet_daily_2015_2020.csv_,
 dal 2015 al 2020
 
-- per mostrare variazione popolarità donne (viz giorgia): _tabelle_dati_viz/tweets_donne_scaricati_viz.csv_, 2015 e 2019 anni
+- per mostrare variazione popolarità donne (box plot e bar chart): _tabelle_dati_viz/tweets_donne_scaricati_viz.csv_, 2015 e 2019 anni
 
-- per mostrare identikit donna (dashboard alessandro): _tabelle_finali_donne_indicatori_stati/info_identikit_donne.xlsx_,
+- per mostrare identikit donna (lollipop e alluvional): _tabelle_finali_donne_indicatori_stati/info_identikit_donne.xlsx_,
 2015 e 2019 anni
 
-- per mostrare analisi indicatori (matrice correlazione, mappa geografica??): _tabelle_dati_viz/indicatori_stati_nomidonne.csv_,
+- per mostrare analisi indicatori (scatterplot): _tabelle_dati_viz/indicatori_stati_nomidonne.csv_,
 2015 e 2019 anni
