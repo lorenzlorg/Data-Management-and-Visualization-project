@@ -40,7 +40,7 @@ dunque i tweet veri e propri. Il relativo script per apportare tale modifica è 
 
 - _indicatori_stati_nomidonne_v2_: utilizziamo questi dati per viz indicatori e sono ricavati da _tabelle_finali_donne_indicatori_stati_
 
-- _info_identikit_donne_: utilizziamo questi dati per identikit donne e sono ricavati da tabelle_finali_donne_indicatori_stati
+- _info_identikit_donne_: utilizziamo questi dati per identikit donne e sono ricavati da tabelle_finali_donne_indicatori_stati 
 
 
 **cartella tweets_scaricati**: vi sono tutti i tweets scaricati dal 2015 al 2020, utilizzando particolari hashtag relativi 
