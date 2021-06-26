@@ -56,6 +56,7 @@ classifica, compresi tutti i tweet.
 
 Il file _producer_tweets_kafka_ invece è lo script che permette di simulare la velocità interfacciandosi con kafka.
 
+Il file _Nifi_consumer_ è il workflow implementato in NiFi per la realizzazione del consumer. A sua volta quest'ultimo invierà i dati ad un database Mongo DB.
 
 **cartella dati_formato_json**: lo script _dati_formato_json/creazione_struttura_documento.py_ serve per 
 rimodellare _tabelle_finali_donne_indicatori_stati/tabella_finale_finale_V3.csv_ in formato json, ottenendo _countries_women.csv_. 
