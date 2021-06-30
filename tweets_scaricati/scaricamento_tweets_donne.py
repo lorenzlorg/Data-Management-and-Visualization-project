@@ -248,6 +248,6 @@ with open('tweets_donne_scaricati_viz.json') as json_file:
 
 # creo un oggetto e lo esporto in csv
 pdObj = pd.read_json('tweets_donne_scaricati_viz.json')
-export_csv = pdObj.to_csv (r'tweets_donne_scaricati_viz.csv', header=True)
+export_csv = pdObj.to_csv ('tweets_donne_pre_post.csv', header=True)
 
 pdObj.to_csv(index=False)
