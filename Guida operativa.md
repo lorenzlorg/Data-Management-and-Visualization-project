@@ -15,15 +15,14 @@ Il file _fonti_dati_integrazione_ contiene le fonti da cui sono stati scaricati 
 
 
 **cartella tabelle_finali_donne_indicatori_stati**: tramite lo script _integrazione_donne_indicatori_ vengono unite 
-informazioni relative alle donne (name,age,username_twitter,hashtag,job,description,image,category,country,year) e 
-informazioni relative agli Stati di appartenenza (gdp,gdp_pro_capita,labour_percentage,gender_gap,percentuale_ministre,
+informazioni relative alle donne e informazioni relative agli Stati di appartenenza (gdp,gdp_pro_capita,labour_percentage,gender_gap,percentuale_ministre,
 percentuale_parlamentari,hdi), il tutto presente nella cartella _dati_donne_indicatori_stati_. Questi dati sono relativi
 agli anni 2015 e 2019. Si ottiene la tabella _indicatori_stati_nomidonne_v1_.
 Da quest'ultima, apportando leggere modifiche , viene ricavata la tabella _indicatori_stati_nomidonne_v2_ ed essa viene utilizzata per viz relative agli indicatori.   
 Inoltre viene creata a partire dalla tabella _info_identikit_donne_raw_v1_ (tramite lo script _integrazione_donne_indicatori_)
 una nuova tabella _info_identikit_donne_raw_v2_, che contiene informazioni inserite manualmente (username Twitter, hashtags, account verificato, regione, categoria).
 Una volta scaricati i tweets per ogni donna è stata creata la nuova tabella _info_identikit_donne_ utilizzata per le viz, inserendo
-a partire da _info_identikit_donne_raw_v2_ il numero di tweets pre e post pubblicazione della lista.
+a partire da _info_identikit_donne_raw_v2_ e _tweets_scaricati/tweets_donne_pre_post.csv_ il numero di tweets pre e post pubblicazione della lista.
 
 
 **cartella tabelle_dati_viz**: contiene le tabelle dati riadattate per consentire di effettuare le visualizzazioni in 
@@ -65,7 +64,7 @@ visti i suoi diversi livelli di annidamento e la sua dimensione non banale.
 Per quanto riguarda le **visualizzazioni**:  
 
 - per mostrare andamento tweets (heatmap): _tabelle_dati_viz/daily_tweet/num_tweet_daily_2015_2020.csv_,
-dal 2015 al 2020
+  (dal 2015 al 2020)
 
 - per mostrare variazione popolarità donne (bar chart e donut chart): _tabelle_finali_donne_indicatori_stati/info_identikit_donne.xlsx_, (2015 e 2019)
 
