@@ -1,6 +1,6 @@
 In sintesi:
 - partendo dai dati _dati_donne_indicatori_stati_ sono state create le _tabelle_finali_donne_indicatori_stati_ (contenenti i dati complessivi di donne, stati, indicatori stati)
-- sono stati scaricati i tweets (_tweets_scaricati_) relativi all'evento BBC 100 Women per ogni anno (_tweets 2015-2020_) e i tweets associati alle singole donne ((_tweets_donne_scaricati_))
+- sono stati scaricati i tweets (_tweets_scaricati_) relativi all'evento BBC 100 Women per ogni anno (_tweets 2015-2020_) e i tweets associati alle singole donne (_tweets_donne_scaricati_)
 - sono state apportate delle modifiche sui dati in modo tale che potessero essere usati per le visualizzazioni (_tabelle_dati_viz_)
 - i dati sono stati raccolti in un'unica collezione in formato json, sottoforma di documenti annindati (_dati_formato_json_)
 
@@ -60,17 +60,6 @@ _dati_formato_json/indicatori_stati_nomidonne_v3.csv_. A seguire, utilizzando lo
 è stato generato un file json comprensivo di tutti i dati relativi a donne e Stati, _countries_women.json_.
 L'obiettivo era quello di utlizzare tale file per le viz ma come si è specificato nel report non è stato possibile processarlo tramite Tableau,
 visti i suoi diversi livelli di annidamento e la sua dimensione non banale.
-
-
-Dunque i file di output rilevanti per le nostre analisi sono:  
-- **indicatori_stati_nomidonne_v2.csv** e **info_identikit_donne_raw_v2.xlsx**, relativa agli anni 2015 e 2019, contenente info delle donne vincitrici e info dei rispettivi
-stati di provenienza. Da questa derivano (_tabelle_finali_donne_indicatori_stati/info_identikit_donne.xlsx_ e 
-_tabelle_finali_donne_indicatori_stati/indicatori_stati_nomidonne.csv_), tramite scirpt appositi.
-- **tweets_donne_scaricati.json**, relativo agli anni 2015 e 2019, contenente info base delle donne vincitrici, numero tweet pre 
-e post classifica, tweet pubblicati (cercati usando hashtag delle donne e BBC). Da questo deriva il file 
-_tabelle_dati_viz/tweets_donne_scaricati_viz.csv_
-- **tweets_2015.csv ... tweets_2019.csv** che contengono tutti i tweet pubblicati nell'anno considerato (2015-2016-2017-
-2018-2019-2020) con gli hashtag della BBC. Da questi derivano i vari file _tabelle_dati_viz/daily_tweet/num_tweet_daily_....csv_
 
 
 Per quanto riguarda le **visualizzazioni**:  
