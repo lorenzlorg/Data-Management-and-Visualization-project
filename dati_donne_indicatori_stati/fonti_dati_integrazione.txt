@@ -1,11 +1,12 @@
 Fonti:
 
 - nomi Stati + codici: https://www.iban.com/country-codes
-- lista donne 2020: https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-12-08/women.csv
+- lista donne 2015: https://www.bbc.co.uk/news/special/2015/newsspec_12497/content/english/index.html?v=0.1.24&hostid=www.bbc.com&hostUrl=https%3A%2F%2Fwww.bbc.com%2Fnews%2Fworld-34745739&iframeUID=responsive-iframe-61225031&onbbcdomain=true#facewall_15
+- lista donne 2019: https://www.bbc.com/news/world-50042279
 - gdp: https://www.imf.org/external/datamapper/NGDPD@WEO/OEMDC/ADVEC/WEOWORLD
 - gdp per capita: https://www.imf.org/external/datamapper/NGDPDPC@WEO/OEMDC/ADVEC/WEOWORLD
 - labour percetage: https://databank.worldbank.org/source/gender-statistics/preview/on
-- global gender gap 2020: https://reports.weforum.org/global-gender-gap-report-2020/the-global-gender-gap-index-2020-rankings/
+- global gender gap 2019: https://reports.weforum.org/global-gender-gap-report-2020/the-global-gender-gap-index-2020-rankings/ (il report uscito nel 2020 si riferisce tuttavia a dati del 2019)
 - global gender gap 2015: https://reports.weforum.org/global-gender-gap-report-2015/rankings/
 - human development index: http://hdr.undp.org/en/indicators/137506
 - percentage_women_minister: https://data.oecd.org/inequality/women-in-politics.htm

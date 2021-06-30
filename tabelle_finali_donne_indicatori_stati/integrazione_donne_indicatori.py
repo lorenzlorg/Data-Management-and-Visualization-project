@@ -22,7 +22,6 @@ bbc2019.rename(columns={'role':'job'}, inplace=True)
 
 """**Scaricamento dati indicatori dei paesi**"""
 
-# global gender gap ci mancano gli anni in mezzo
 # https://reports.weforum.org/global-gender-gap-report-2020/the-global-gender-gap-index-2020-rankings/
 # sul sito del wef, la data di pubblicazione del report del 2020 è dicembre 2019, quindi assumiamo che i dati si riferiscano al 2019
 ggg2019= pd.read_csv('dati_donne_indicatori_stati/global gender gap 2019/gender_gap_2019_updated.csv', sep=';')
@@ -105,4 +104,5 @@ totale1= totale.dropna(subset=['Country'])
 totale2= totale1[['Country', 'year','gdp', 'gdp_pro_capita', 'labour_percentage', 'gender_gap', 'hdi', 'name']]
 totale2.to_csv('indicatori_stati_nomidonne_v1.csv')
 
-
+donne_totale = pd.concat([bbc2015, bbc2019])
+donne_totale.to_excel("info_identikit_donne_raw.xlsx")

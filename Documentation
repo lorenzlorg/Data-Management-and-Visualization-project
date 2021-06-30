@@ -1,27 +1,26 @@
 In sintesi:
 - partendo dai dati _dati_donne_indicatori_stati_ sono state create le _tabelle_finali_donne_indicatori_stati_ (contenenti i dati complessivi di donne, stati, indicatori stati)
-- sono stati scaricati i tweets (_tweets_scaricati_) relativi all'evento BBC 100 Women per ogni anno e i tweets (_tweets_donne_scaricati_) associati alle singole donne
+- sono stati scaricati i tweets (_tweets_scaricati_) relativi all'evento BBC 100 Women per ogni anno (_tweets 2015-2020_) e i tweets associati alle singole donne ((_tweets_donne_scaricati_))
 - sono state apportate delle modifiche sui dati in modo tale che potessero essere usati per le visualizzazioni (_tabelle_dati_viz_)
 - i dati sono stati raccolti in un'unica collezione in formato json, sottoforma di documenti annindati (_dati_formato_json_)
 
 
 **cartella dati_donne_indicatori_stati**: sono contentute le liste BBC 100 Women per gli anni 2015 e 2019. La 
-lista BBC 100 Women 2020 non è stata utilizzata. Inoltre sono presenti le tabelle (e relativi script) con i dati 
-relativi ai singoli indicatori degli stati (hdi, gdp, gender gap ...). Di alcuni di questi come la percentuale delle 
-ministre vi sono diversi valori null.  
+lista BBC 100 Women 2020 non è stata utilizzata per via del fatto che la scelta delle donne è stata fortemenete influenzata dalla situazione pandemica. 
+Inoltre sono presenti le tabelle (e relativi script) con i dati relativi ai singoli indicatori degli Stati (hdi, gdp, gender gap ...). 
 
 Il file _fonti_dati_integrazione_ contiene le fonti da cui sono stati scaricati i 
-vari indicatori.
+vari indicatori e le liste BBC.
 
 
 **cartella tabelle_finali_donne_indicatori_stati**: tramite lo script _integrazione_donne_indicatori_ vengono unite 
 informazioni relative alle donne (name,age,username_twitter,hashtag,job,description,image,category,country,year) e 
-informazioni relativi agli stati di appartenza (gdp,gdp_pro_capita,labour_percentage,gender_gap,percentuale_ministre,
+informazioni relative agli Stati di appartenenza (gdp,gdp_pro_capita,labour_percentage,gender_gap,percentuale_ministre,
 percentuale_parlamentari,hdi), il tutto presente nella cartella _dati_donne_indicatori_stati_. Questi dati sono relativi
-agli anni 2015 e 2019. Si ottiene la tabella _indicatori_stati_nomidonne_v1_
-Dai dati aggregati viene ricavata la tabella _indicatori_stati_nomidonne_v2_ (ottenuta da leggere modifche effettuate sulla tabella _indicatori_stati_nomidonne_v1_) ed essa viene utilizzata per viz indicatori.   
-Inoltre viene creata sempre a partire dai dati aggregati una nuova tabella _info_identikit_donne_ che viene utilizzata 
-per viz identikit donne.
+agli anni 2015 e 2019. Si ottiene la tabella _indicatori_stati_nomidonne_v1_.
+Da quest'ultima, apportando leggere modifiche , viene ricavata la tabella _indicatori_stati_nomidonne_v2_ ed essa viene utilizzata per viz relative agli indicatori.   
+Inoltre viene creata a partire dalla tabella _info_identikit_donne_raw_ (tramite lo script _integrazione_donne_indicatori_) 
+una nuova tabella _info_identikit_donne_ che viene utilizzata per viz relative all'identikit donne.
 
 
 **cartella tabelle_dati_viz**: contiene le tabelle dati riadattate per consentire di effettuare le visualizzazioni in 
@@ -35,7 +34,7 @@ tramite manipolazione in R/Python dei file contenuti in _tweets_scaricati/tweets
 - _tweets_donne_scaricati_viz_: viene utilizzato per controllare variazione numero tweet per ciascuna donna 
 (2015 e 2019). Dopo aver creato la struttura completa mediante lo script _scaricamento_tweets_donne_ e aver ottenuto
 il file _tweets_scaricati/tweets_donne_scaricati.json_ (comprende donna, numero tweet pre e post classifica, tweet) si considera 
-solo una porzione di esso. I campi presi in considerazione sono donna, numero tweet pre e post classifica,tralasciando 
+solo una porzione di esso. I campi presi in considerazione sono donna, numero tweet pre e post classifica, tralasciando 
 dunque i tweet veri e propri. Il relativo script per apportare tale modifica è nella parte finale dello script _scaricamento_tweets_donne_
 
 - _indicatori_stati_nomidonne_v2_: utilizziamo questi dati per viz indicatori e sono ricavati da _tabelle_finali_donne_indicatori_stati_
@@ -45,7 +44,7 @@ dunque i tweet veri e propri. Il relativo script per apportare tale modifica è 
 
 **cartella tweets_scaricati**: vi sono tutti i tweets scaricati dal 2015 al 2020, utilizzando particolari hashtag relativi 
 all'evento della bbc (il relativo script è _scaricamento_tweets_bbc100women_). Questi dati sono stati scaricati per capire 
-l'andamento del numero di tweet pre e post classifica.   
+l'andamento del numero di tweets pre e post pubblicazione della lista.   
 
 Il file _scaricamento_tweets_donne_ è invece relativo allo scaricamento dei tweets per ogni donna (usando gli hashtag
 della donna in questione oltre a quelli della BBC). Questi dati servono per capire come la popolarità delle donne è 
