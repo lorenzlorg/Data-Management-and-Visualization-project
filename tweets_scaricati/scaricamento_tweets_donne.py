@@ -71,8 +71,7 @@ def download_tweets(until, since, changing, remaining_days, complete_tweets_db, 
 
 
 # lista donne bbc
-# df_women = pd.read_csv("tweets donne Giorgia/tabella_finale_finale_parte_giorgia_3.csv", sep=',')
-df_women = pd.read_csv("tabelle_finali_donne_indicatori_stati/indicatori_stati_nomidonne_v3.csv", sep=',')
+df_women = pd.read_excel("tabelle_finali_donne_indicatori_stati/info_identikit_donne_raw_v2.xlsx")
 df_women_redux = df_women[["id", "name", "username_twitter", "hashtag", "year"]]
 
 documents=[]

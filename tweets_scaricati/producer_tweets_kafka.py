@@ -1,3 +1,4 @@
+# il seguente script viene eseguito per ogni singolo anno considerato (di seguito viene riportato lo script per l'anno 2020)
 # da utilizzare su jupyterlab tramite macchina virtuale Azure
 
 # !pip3 install git+https://github.com/dpkp/kafka-python
@@ -11,11 +12,9 @@ producer = KafkaProducer(
     value_serializer = lambda v: json.dumps(v).encode("UTF-8"))
 
 # lettura file json tweets scaricati
-
 tweets_final = json.load(open("tweets_2020.json"))
 
 # tweets -> topic -> mongodb
-
 for tweet in tweets_final:
     # print(tweet)
     producer.send(topic='tweets', value=tweet)

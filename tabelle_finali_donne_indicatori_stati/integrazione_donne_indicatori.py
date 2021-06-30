@@ -104,5 +104,7 @@ totale1= totale.dropna(subset=['Country'])
 totale2= totale1[['Country', 'year','gdp', 'gdp_pro_capita', 'labour_percentage', 'gender_gap', 'hdi', 'name']]
 totale2.to_csv('indicatori_stati_nomidonne_v1.csv')
 
+bbc2015['year'] = 2015
+bbc2019['year'] = 2019
 donne_totale = pd.concat([bbc2015, bbc2019])
-donne_totale.to_excel("info_identikit_donne_raw.xlsx")
+donne_totale.to_excel("info_identikit_donne_raw_v1.xlsx")
