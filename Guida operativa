@@ -5,13 +5,13 @@ In sintesi:
 - i dati sono stati raccolti in un'unica collezione in formato json, sottoforma di documenti annindati (_dati_formato_json_)
 
 Le librerie utilizzate sono indicate in: _requirements_.
+La versione di Python utilizzata è: 3.9
 
 **cartella dati_donne_indicatori_stati**: sono contentute le liste BBC 100 Women per gli anni 2015 e 2019. La 
 lista BBC 100 Women 2020 non è stata utilizzata per via del fatto che la scelta delle donne è stata fortemenete influenzata dalla situazione pandemica. 
 Inoltre sono presenti le tabelle (e relativi script) con i dati relativi ai singoli indicatori degli Stati (hdi, gdp, gender gap ...). 
 
-Il file _fonti_dati_integrazione_ contiene le fonti da cui sono stati scaricati i 
-vari indicatori e le liste BBC.
+Il file _fonti_dati_integrazione_ contiene le fonti da cui sono stati scaricati i  vari indicatori e le liste BBC.
 
 
 **cartella tabelle_finali_donne_indicatori_stati**: tramite lo script _integrazione_donne_indicatori_ vengono unite 
@@ -55,15 +55,15 @@ Il file _producer_tweets_kafka_ invece è lo script che permette di simulare la 
 
 Il file _Nifi_consumer_ è il workflow implementato in NiFi per la realizzazione del consumer. A sua volta quest'ultimo invierà i dati ad un database Mongo DB.
 
-**cartella dati_formato_json**: considerando i dati di tabelle_finali_donne_indicatori_stati e rimodellandoli a creare _dati_formato_json/indicatori_stati_nomidonne_v3.csv_,
-è stato utilizzato lo script _dati_formato_json/creazione_struttura_documento.py_ che ha permesso di ottenere i dati
-in formato json, _countries_women.json_.
-------------- L'obiettivo era quello di utlizzare tale file per le viz ma come si è detto nel report
-il formato josn di cosi grande dimensione e i tanti livelli di annidamento non è stato possibile processarlo tramite Tableau.
+**cartella dati_formato_json**: a partire dai dati in _tabelle_finali_donne_indicatori_stati_ è stato creata la tabella
+_dati_formato_json/indicatori_stati_nomidonne_v3.csv_. A seguire, utilizzando lo script _dati_formato_json/creazione_struttura_documento.py_,
+è stato generato un file json comprensivo di tutti i dati relativi a donne e Stati, _countries_women.json_.
+L'obiettivo era quello di utlizzare tale file per le viz ma come si è specificato nel report non è stato possibile processarlo tramite Tableau,
+visti i suoi diversi livelli di annidamento e la sua dimensione non banale.
 
-----
+
 Dunque i file di output rilevanti per le nostre analisi sono:  
-- **tabella_finale_finale_V3**, relativa agli anni 2015 e 2019, contenente info delle donne vincitrici e info dei rispettivi
+- **indicatori_stati_nomidonne_v2.csv** e **info_identikit_donne_raw_v2.xlsx**, relativa agli anni 2015 e 2019, contenente info delle donne vincitrici e info dei rispettivi
 stati di provenienza. Da questa derivano (_tabelle_finali_donne_indicatori_stati/info_identikit_donne.xlsx_ e 
 _tabelle_finali_donne_indicatori_stati/indicatori_stati_nomidonne.csv_), tramite scirpt appositi.
 - **tweets_donne_scaricati.json**, relativo agli anni 2015 e 2019, contenente info base delle donne vincitrici, numero tweet pre 
@@ -71,7 +71,7 @@ e post classifica, tweet pubblicati (cercati usando hashtag delle donne e BBC). 
 _tabelle_dati_viz/tweets_donne_scaricati_viz.csv_
 - **tweets_2015.csv ... tweets_2019.csv** che contengono tutti i tweet pubblicati nell'anno considerato (2015-2016-2017-
 2018-2019-2020) con gli hashtag della BBC. Da questi derivano i vari file _tabelle_dati_viz/daily_tweet/num_tweet_daily_....csv_
-----
+
 
 Per quanto riguarda le **visualizzazioni**:  
 
