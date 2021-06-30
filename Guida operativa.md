@@ -72,3 +72,5 @@ Per quanto riguarda le **visualizzazioni**:
 (2015 e 2019)
 
 - per mostrare analisi indicatori (scatterplot): _tabelle_dati_viz/indicatori_stati_nomidonne_v2.csv_, (2015 e 2019)
+
+Il link per le visualizzazioni è: https://public.tableau.com/profile/lorenzo3645#!/
