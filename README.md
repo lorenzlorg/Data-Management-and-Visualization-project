@@ -24,6 +24,7 @@ dettagliati e di semplice comprensione dei risultati.
 
 *Keywords*: Twitter, Twint, Python, Kafka, Nifi, MongoDB, Tableau, DataManagement, DataVisualization.
 
+*Link Visualizzazioni*: https://public.tableau.com/app/profile/lorenzo3645/viz/ProgettoBBC100Women/progettoBBC100Women
 ***
 
 _**Giorgia Antonicelli**_ <br />
